@@ -1,0 +1,18 @@
+name = "uverify/validators"
+version = "0.1.0"
+description = "Aiken contracts for project 'uverify/validators'"
+
+[repository]
+user = "uverify"
+project = "validators"
+platform = "github"
+
+[[dependencies]]
+name = "aiken-lang/stdlib"
+version = "3.0.0"
+source = "github"
+
+[[dependencies]]
+name = "sidan-lab/vodka"
+version = "0.1.15"
+source = "github"
