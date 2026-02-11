@@ -53,7 +53,6 @@ validator proxy(utxo_ref: OutputReference) {
       reference_inputs,
       ..
     } = transaction
-    trace @"mint proxy contract"
     let state_token_name = get_state_token_name(utxo_ref)
 
     when redeemer is {
@@ -84,7 +83,6 @@ validator proxy(utxo_ref: OutputReference) {
         }
       }
       USER -> {
-        trace @"user action 1/2"
         // token name is not allowed to be state_token_name
         let minted_tokens =
           mint
@@ -104,7 +102,6 @@ validator proxy(utxo_ref: OutputReference) {
         expect Some(script_pointer_ref) = maybe_script_pointer_ref
         let proxy_datum = resolve_proxy_datum(script_pointer_ref.output)
 
-        trace @"user action 2/2"
         and {
           (!list.has(minted_tokens, state_token_name))?,
           list.has(pairs.keys(withdrawals), Script(proxy_datum.script_pointer))?,
@@ -119,7 +116,6 @@ validator proxy(utxo_ref: OutputReference) {
     spent_output_ref: OutputReference,
     transaction: Transaction,
   ) {
-    trace @"spend proxy contract"
     let Transaction {
       inputs,
       outputs,
@@ -157,7 +153,6 @@ validator proxy(utxo_ref: OutputReference) {
         }
       }
       USER -> {
-        trace @"user action 1/2"
         // reference input with pointer token should be around
         let maybe_script_pointer_ref =
           list.find(
@@ -175,7 +170,6 @@ validator proxy(utxo_ref: OutputReference) {
         let state_token_not_in_inputs =
           !has_nft(spent_utxo.value, policy_id, state_token_name)
 
-        trace @"user action 2/2"
         and {
           state_token_not_in_inputs?,
           list.has(

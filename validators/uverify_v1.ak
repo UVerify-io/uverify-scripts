@@ -33,7 +33,6 @@ validator uverify_state(
     _account: Credential,
     tx: Transaction,
   ) {
-    trace @"withdraw starts"
     let Transaction {
       extra_signatories,
       inputs,
@@ -246,7 +245,6 @@ validator uverify_state(
                 // Conditions already checked in minting burning branch
                 is_minting_or_burning
               UPDATE_STATE -> {
-                trace @"update state"
                 expect current_state: StateDatum = inline_datum
 
                 let script_outputs =
