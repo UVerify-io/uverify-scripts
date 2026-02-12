@@ -1,7 +1,6 @@
 use aiken/collection/dict
 use aiken/collection/list.{is_empty}
 use aiken/collection/pairs
-use aiken/crypto.{VerificationKeyHash}
 use aiken/option.{is_none, is_some}
 use cardano/address.{Address, Credential, Script, from_script}
 use cardano/assets.{has_any_nft, has_nft, quantity_of, tokens}
@@ -9,7 +8,7 @@ use cardano/certificate.{Certificate, RegisterCredential}
 use cardano/transaction.{
   InlineDatum, Input, Output, Redeemer, Transaction, find_script_outputs,
 }
-use cocktail/vodka_extra_signatories.{key_signed}
+use cocktail/vodka_extra_signatories.{key_signed, one_of_keys_signed}
 use common.{
   certificates_are_valid, contains_service_fee, has_unique_id, is_state_alive,
   state_datum_is_valid, token_not_expired, verify_state_mutation,
@@ -19,9 +18,12 @@ use types.{
   StateDatum, UPDATE_STATE, UVerifyStateRedeemer,
 }
 
-// Hardcoded admin key required for bootstrap and token burns
-const admin_key: VerificationKeyHash =
-  #"11bcb8e4a79304e23bcd5e2bf628907f9b998f43902f41d1db439981"
+// Hardcoded admin keys required for bootstrap and token burns
+const admin_keys =
+  [
+    #"11bcb8e4a79304e23bcd5e2bf628907f9b998f43902f41d1db439981",
+    #"81c0d7f845fb2cf5d23453dc63997595688973c860786503c4d47b11",
+  ]
 
 validator uverify_state(
   proxy_policy_id: ByteArray,
@@ -97,7 +99,7 @@ validator uverify_state(
                   (token_amount == 1)?,
                   (token_name == minted_token)?,
                   // Admin must sign bootstrap
-                  key_signed(extra_signatories, admin_key)?,
+                  one_of_keys_signed(extra_signatories, admin_keys)?,
                 }
               }
               MINT_STATE -> {
@@ -185,7 +187,7 @@ validator uverify_state(
                 and {
                   (bootstrap_datum.token_name == token_name)?,
                   is_none(maybe_script_output_with_policy)?,
-                  key_signed(extra_signatories, admin_key)?,
+                  one_of_keys_signed(extra_signatories, admin_keys)?,
                 }
               }
               // State burn requires no remaining script outputs

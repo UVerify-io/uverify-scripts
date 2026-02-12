@@ -1,0 +1,17 @@
+name: 🎳 Run Tests
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aiken-lang/setup-aiken@v1
+        with:
+          version: v1.1.17+c3a7fba
+      - run: aiken fmt --check
+      - run: aiken check
