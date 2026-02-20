@@ -10,7 +10,7 @@ validator library(admin: VerificationKeyHash) {
     self: Transaction,
   ) {
     let Transaction { extra_signatories, .. } = self
-    key_signed(extra_signatories, admin)
+    key_signed(extra_signatories, admin)?
   }
 
   else(_) {
