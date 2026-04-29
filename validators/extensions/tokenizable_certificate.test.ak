@@ -28,7 +28,7 @@ const cert_key_b: ByteArray =
 const token_asset_name: ByteArray = "CERT_TOKEN"
 
 fn node_tn(key: ByteArray) -> ByteArray {
-  bytearray.concat(node_prefix, key)
+  bytearray.concat(node_prefix, bytearray.take(key, 29))
 }
 
 fn make_config() -> TokenizableConfig {

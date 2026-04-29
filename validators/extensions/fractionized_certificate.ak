@@ -17,7 +17,7 @@ use types.{
 const node_prefix: ByteArray = #"46524e"
 
 fn node_token_name(key: ByteArray) -> ByteArray {
-  bytearray.concat(node_prefix, key)
+  bytearray.concat(node_prefix, bytearray.take(key, 29))
 }
 
 fn find_fractionized_node_input(

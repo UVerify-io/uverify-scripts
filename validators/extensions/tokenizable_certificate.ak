@@ -20,7 +20,7 @@ const cip68_user_prefix: ByteArray = #"000de140"
 const cip68_ref_prefix: ByteArray = #"000643b0"
 
 fn node_token_name(key: ByteArray) -> ByteArray {
-  bytearray.concat(node_prefix, key)
+  bytearray.concat(node_prefix, bytearray.take(key, 29))
 }
 
 fn find_node_input(
