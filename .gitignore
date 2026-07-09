@@ -11,3 +11,6 @@ Thumbs.db
 build/
 blueprint.json
 plutus.json
+
+# Benchmark artifacts (baseline.json stays tracked)
+benchmarks/results.json

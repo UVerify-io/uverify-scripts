@@ -1,0 +1,23 @@
+{
+  "tolerancePercent": 5,
+  "maxSweepSize": 30,
+  "budget": {
+    "maxMem": 14000000,
+    "maxCpu": 10000000000,
+    "maxTxSizeBytes": 16384
+  },
+  "feeParams": {
+    "txFeeFixed": 155381,
+    "txFeePerByte": 44,
+    "priceMem": 0.0577,
+    "priceStep": 0.0000721
+  },
+  "txSize": {
+    "overheadBytes": 1500,
+    "certificateOverheadBytes": 16,
+    "presetExtraBytes": {
+      "standard": 120,
+      "rich": 1479
+    }
+  }
+}
