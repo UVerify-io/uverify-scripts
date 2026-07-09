@@ -1,0 +1,136 @@
+{
+  "seed": 1621899022,
+  "summary": {
+    "total": 12,
+    "passed": 12,
+    "failed": 0,
+    "kind": {
+      "unit": 12,
+      "property": 0
+    }
+  },
+  "modules": [
+    {
+      "name": "benchmarks/uverify_state_v1_bench",
+      "summary": {
+        "total": 12,
+        "passed": 12,
+        "failed": 0,
+        "kind": {
+          "unit": 12,
+          "property": 0
+        }
+      },
+      "tests": [
+        {
+          "title": "bench_v1_mint_standard_single",
+          "status": "pass",
+          "on_failure": "fail_immediately",
+          "execution_units": {
+            "mem": 513286,
+            "cpu": 190669253
+          }
+        },
+        {
+          "title": "bench_v1_mint_standard_batch_5",
+          "status": "pass",
+          "on_failure": "fail_immediately",
+          "execution_units": {
+            "mem": 729658,
+            "cpu": 309247597
+          }
+        },
+        {
+          "title": "bench_v1_mint_standard_batch_10",
+          "status": "pass",
+          "on_failure": "fail_immediately",
+          "execution_units": {
+            "mem": 1001173,
+            "cpu": 457686059
+          }
+        },
+        {
+          "title": "bench_v1_mint_rich_single",
+          "status": "pass",
+          "on_failure": "fail_immediately",
+          "execution_units": {
+            "mem": 532934,
+            "cpu": 319011433
+          }
+        },
+        {
+          "title": "bench_v1_mint_rich_batch_5",
+          "status": "pass",
+          "on_failure": "fail_immediately",
+          "execution_units": {
+            "mem": 831294,
+            "cpu": 951546005
+          }
+        },
+        {
+          "title": "bench_v1_mint_rich_batch_10",
+          "status": "pass",
+          "on_failure": "fail_immediately",
+          "execution_units": {
+            "mem": 1212941,
+            "cpu": 1743707507
+          }
+        },
+        {
+          "title": "bench_v1_update_standard_single",
+          "status": "pass",
+          "on_failure": "fail_immediately",
+          "execution_units": {
+            "mem": 417188,
+            "cpu": 159139509
+          }
+        },
+        {
+          "title": "bench_v1_update_standard_batch_5",
+          "status": "pass",
+          "on_failure": "fail_immediately",
+          "execution_units": {
+            "mem": 633560,
+            "cpu": 277717853
+          }
+        },
+        {
+          "title": "bench_v1_update_standard_batch_10",
+          "status": "pass",
+          "on_failure": "fail_immediately",
+          "execution_units": {
+            "mem": 905075,
+            "cpu": 426156315
+          }
+        },
+        {
+          "title": "bench_v1_update_rich_single",
+          "status": "pass",
+          "on_failure": "fail_immediately",
+          "execution_units": {
+            "mem": 436836,
+            "cpu": 287481689
+          }
+        },
+        {
+          "title": "bench_v1_update_rich_batch_5",
+          "status": "pass",
+          "on_failure": "fail_immediately",
+          "execution_units": {
+            "mem": 735196,
+            "cpu": 920016261
+          }
+        },
+        {
+          "title": "bench_v1_update_rich_batch_10",
+          "status": "pass",
+          "on_failure": "fail_immediately",
+          "execution_units": {
+            "mem": 1116843,
+            "cpu": 1712177763
+          }
+        }
+      ]
+    }
+  ]
+}

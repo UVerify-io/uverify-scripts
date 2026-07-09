@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "measure": "deno run -A run.ts",
+    "check": "deno run -A run.ts --check",
+    "update-baseline": "deno run -A run.ts --update-baseline",
+    "test": "deno test -A"
+  }
+}

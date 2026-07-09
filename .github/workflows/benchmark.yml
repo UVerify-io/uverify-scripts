@@ -1,0 +1,27 @@
+name: 📊 Benchmarks
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+jobs:
+  benchmark:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aiken-lang/setup-aiken@v1
+        with:
+          version: v1.1.17
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Runner unit tests
+        run: deno test -A benchmarks/
+      - name: Benchmark regression check
+        run: deno run -A benchmarks/run.ts --check
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: benchmark-results
+          path: benchmarks/results.json

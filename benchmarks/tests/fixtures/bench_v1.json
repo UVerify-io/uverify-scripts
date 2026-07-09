@@ -1,0 +1,149 @@
+{
+  "benchmarks": [
+    {
+      "name": "bench_v1_mint_standard_sweep",
+      "module": "benchmarks/uverify_state_v1_bench",
+      "measures": [
+        {
+          "size": 0,
+          "memory": 457423,
+          "cpu": 176304501
+        },
+        {
+          "size": 1,
+          "memory": 509343,
+          "cpu": 205361536
+        },
+        {
+          "size": 2,
+          "memory": 561309,
+          "cpu": 234471705
+        },
+        {
+          "size": 3,
+          "memory": 613323,
+          "cpu": 263545002
+        },
+        {
+          "size": 4,
+          "memory": 665383,
+          "cpu": 292626257
+        },
+        {
+          "size": 5,
+          "memory": 717489,
+          "cpu": 321760646
+        }
+      ]
+    },
+    {
+      "name": "bench_v1_mint_rich_sweep",
+      "module": "benchmarks/uverify_state_v1_bench",
+      "measures": [
+        {
+          "size": 0,
+          "memory": 477071,
+          "cpu": 304646681
+        },
+        {
+          "size": 1,
+          "memory": 548979,
+          "cpu": 462104716
+        },
+        {
+          "size": 2,
+          "memory": 621273,
+          "cpu": 619629529
+        },
+        {
+          "size": 3,
+          "memory": 693953,
+          "cpu": 777221120
+        },
+        {
+          "size": 4,
+          "memory": 767019,
+          "cpu": 934924665
+        },
+        {
+          "size": 5,
+          "memory": 840473,
+          "cpu": 1092650158
+        }
+      ]
+    },
+    {
+      "name": "bench_v1_update_standard_sweep",
+      "module": "benchmarks/uverify_state_v1_bench",
+      "measures": [
+        {
+          "size": 0,
+          "memory": 355534,
+          "cpu": 143272699
+        },
+        {
+          "size": 1,
+          "memory": 407454,
+          "cpu": 172329734
+        },
+        {
+          "size": 2,
+          "memory": 459420,
+          "cpu": 201439903
+        },
+        {
+          "size": 3,
+          "memory": 511434,
+          "cpu": 230513200
+        },
+        {
+          "size": 4,
+          "memory": 563494,
+          "cpu": 259594455
+        },
+        {
+          "size": 5,
+          "memory": 615600,
+          "cpu": 288728844
+        }
+      ]
+    },
+    {
+      "name": "bench_v1_update_rich_sweep",
+      "module": "benchmarks/uverify_state_v1_bench",
+      "measures": [
+        {
+          "size": 0,
+          "memory": 375182,
+          "cpu": 271614879
+        },
+        {
+          "size": 1,
+          "memory": 447090,
+          "cpu": 429072914
+        },
+        {
+          "size": 2,
+          "memory": 519384,
+          "cpu": 586597727
+        },
+        {
+          "size": 3,
+          "memory": 592064,
+          "cpu": 744189318
+        },
+        {
+          "size": 4,
+          "memory": 665130,
+          "cpu": 901892863
+        },
+        {
+          "size": 5,
+          "memory": 738584,
+          "cpu": 1059618356
+        }
+      ]
+    }
+  ],
+  "seed": 835164720
+}
