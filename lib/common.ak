@@ -118,6 +118,34 @@ pub fn contains_service_fee(
   )
 }
 
+// Same as contains_service_fee, but when a fee is due it also requires at
+// least one receiver. The original returns true for an empty receiver list
+// (list.all over [] is vacuously true), which lets a fee be skipped entirely
+// when a bootstrap datum is misconfigured with fee > 0 and no receivers.
+pub fn contains_service_fee_v2(
+  outputs: List<Output>,
+  state_datum: StateDatum,
+) -> Bool {
+  state_datum.fee_interval == 0 || state_datum.fee == 0 || (
+    state_datum.countdown + 1
+  ) % state_datum.fee_interval != 0 || and {
+    !list.is_empty(state_datum.fee_receivers),
+    list.all(
+      state_datum.fee_receivers,
+      fn(receiver) {
+        list.any(
+          outputs,
+          fn(output) {
+            output.value == from_lovelace(
+              state_datum.fee / list.length(state_datum.fee_receivers),
+            ) && output.address.payment_credential == VerificationKey(receiver)
+          },
+        )
+      },
+    ),
+  }
+}
+
 pub fn verify_state_mutation(
   next_state_datum: StateDatum,
   current_state_datum: StateDatum,
