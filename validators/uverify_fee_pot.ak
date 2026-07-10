@@ -23,14 +23,16 @@ validator fee_pot(
     utxo: OutputReference,
     self: Transaction,
   ) {
-    let Transaction {
-      extra_signatories,
-      inputs,
-      outputs,
-      fee,
-      validity_range,
-      ..
-    } = self
+    let  
+        Transaction {
+          extra_signatories,
+          inputs,
+          outputs,
+          fee,
+          validity_range,
+          ..
+        }
+      = self
     let signed_by_admin = one_of_keys_signed(extra_signatories, admins)
 
     // If any admin has signed, they are allowed to spend everything
@@ -44,36 +46,32 @@ validator fee_pot(
         expect Some(input) = find_input(inputs, utxo)
         let used_lovelace = lovelace_of(input.output.value)
 
-        let script_outputs =
-          list.filter(
-            outputs,
-            fn(output) { output.address == input.output.address },
-          )
+        let script_outputs = list.filter(
+          outputs,
+          fn(output) { output.address == input.output.address },
+        )
 
-        let white_listed_script_outputs =
-          list.filter(
-            outputs,
-            fn(output) {
-              list.any(
-                script_whitelist,
-                fn(script) { from_script(script) == output.address },
-              )
-            },
-          )
+        let white_listed_script_outputs = list.filter(
+          outputs,
+          fn(output) {
+            list.any(
+              script_whitelist,
+              fn(script) { from_script(script) == output.address },
+            )
+          },
+        )
 
-        let lovelace_guarding_utxo_of_whitelisted_scripts =
-          list.reduce(
-            white_listed_script_outputs,
-            0,
-            fn(acc, output) { acc + lovelace_of(output.value) },
-          )
+        let lovelace_guarding_utxo_of_whitelisted_scripts = list.reduce(
+          white_listed_script_outputs,
+          0,
+          fn(acc, output) { acc + lovelace_of(output.value) },
+        )
 
-        let lovelace_in_change_outputs =
-          list.reduce(
-            script_outputs,
-            0,
-            fn(acc, output) { acc + lovelace_of(output.value) },
-          )
+        let lovelace_in_change_outputs = list.reduce(
+          script_outputs,
+          0,
+          fn(acc, output) { acc + lovelace_of(output.value) },
+        )
 
         when redeemer is {
           Intent.ON_BEHALF {
@@ -84,14 +82,13 @@ validator fee_pot(
             signature,
           } -> {
             let signer_public_key_hash = blake2b_224(signer_public_key)
-            let expected_message =
+            let expected_message = concat(
               concat(
-                concat(
-                  concat(bytearray.to_hex(signer_public_key_hash), @":"),
-                  concat(bytearray.to_hex(submitter_key_hash), @":"),
-                ),
-                to_string(ttl),
-              )
+                concat(bytearray.to_hex(signer_public_key_hash), @":"),
+                concat(bytearray.to_hex(submitter_key_hash), @":"),
+              ),
+              to_string(ttl),
+            )
 
             trace @"ttl": ttl
             trace @"validity_range": validity_range

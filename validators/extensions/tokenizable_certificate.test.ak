@@ -77,50 +77,48 @@ test should_init_with_first_node() {
   let uverify_redeemer: Redeemer = make_uverify_redeemer(cert_key_a)
 
   let head_datum = Head { next: Some(cert_key_a), config }
-  let node_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let node_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: init_utxo,
-          output: Output {
-            address: mock_pub_key_address(0, None),
-            value: from_lovelace(2000000),
-            datum: NoDatum,
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(head_datum),
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: init_utxo,
+        output: Output {
+          address: mock_pub_key_address(0, None),
+          value: from_lovelace(2000000),
+          datum: NoDatum,
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: merge(
-        from_asset(policy_id, node_prefix, 1),
-        from_asset(policy_id, node_tn(cert_key_a), 1),
-      ),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: [mock_pub_key_hash(0)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: merge(
+      from_asset(policy_id, node_prefix, 1),
+      from_asset(policy_id, node_tn(cert_key_a), 1),
+    ),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: [mock_pub_key_hash(0)],
+  }
 
   tokenizable_certificate.tokenizable_certificate.mint(
     init_utxo,
@@ -138,51 +136,49 @@ test should_fail_init_without_deployer_signature() fail {
   let uverify_redeemer: Redeemer = make_uverify_redeemer(cert_key_a)
 
   let head_datum = Head { next: Some(cert_key_a), config }
-  let node_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let node_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: init_utxo,
-          output: Output {
-            address: mock_pub_key_address(0, None),
-            value: from_lovelace(2000000),
-            datum: NoDatum,
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(head_datum),
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: init_utxo,
+        output: Output {
+          address: mock_pub_key_address(0, None),
+          value: from_lovelace(2000000),
+          datum: NoDatum,
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: merge(
-        from_asset(policy_id, node_prefix, 1),
-        from_asset(policy_id, node_tn(cert_key_a), 1),
-      ),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: // wrong signer — not the deployer
-      [mock_pub_key_hash(99)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: merge(
+      from_asset(policy_id, node_prefix, 1),
+      from_asset(policy_id, node_tn(cert_key_a), 1),
+    ),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: // wrong signer — not the deployer
+    [mock_pub_key_hash(99)],
+  }
 
   tokenizable_certificate.tokenizable_certificate.mint(
     init_utxo,
@@ -201,51 +197,49 @@ test should_fail_init_without_consuming_init_utxo() fail {
   let uverify_redeemer: Redeemer = make_uverify_redeemer(cert_key_a)
 
   let head_datum = Head { next: Some(cert_key_a), config }
-  let node_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let node_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          // wrong UTxO — not the one locked into the validator
-          output_reference: different_utxo,
-          output: Output {
-            address: mock_pub_key_address(0, None),
-            value: from_lovelace(2000000),
-            datum: NoDatum,
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(head_datum),
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        // wrong UTxO — not the one locked into the validator
+        output_reference: different_utxo,
+        output: Output {
+          address: mock_pub_key_address(0, None),
+          value: from_lovelace(2000000),
+          datum: NoDatum,
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: merge(
-        from_asset(policy_id, node_prefix, 1),
-        from_asset(policy_id, node_tn(cert_key_a), 1),
-      ),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: [mock_pub_key_hash(0)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: merge(
+      from_asset(policy_id, node_prefix, 1),
+      from_asset(policy_id, node_tn(cert_key_a), 1),
+    ),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: [mock_pub_key_hash(0)],
+  }
 
   tokenizable_certificate.tokenizable_certificate.mint(
     init_utxo,
@@ -265,41 +259,39 @@ test should_mint_insert_first_node() {
   let uverify_redeemer: Redeemer = make_uverify_redeemer(cert_key_a)
 
   let head_datum = Head { next: None, config }
-  let node_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let node_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
           address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(node_datum),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_a), 1),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: [mock_pub_key_hash(1)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_a), 1),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: [mock_pub_key_hash(1)],
+  }
 
   tokenizable_certificate.tokenizable_certificate.mint(
     init_utxo,
@@ -317,41 +309,39 @@ test should_fail_insert_with_unknown_inserter() fail {
   let uverify_redeemer: Redeemer = make_uverify_redeemer(cert_key_a)
 
   let head_datum = Head { next: None, config }
-  let node_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let node_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
           address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(node_datum),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_a), 1),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: [mock_pub_key_hash(99)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_a), 1),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: [mock_pub_key_hash(99)],
+  }
 
   tokenizable_certificate.tokenizable_certificate.mint(
     init_utxo,
@@ -370,41 +360,39 @@ test should_fail_insert_with_empty_key() fail {
   let uverify_redeemer: Redeemer = make_uverify_redeemer(empty_key)
 
   let head_datum = Head { next: None, config }
-  let node_datum =
-    Node {
-      key: empty_key,
-      next: None,
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let node_datum = Node {
+    key: empty_key,
+    next: None,
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
           address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(empty_key), 1),
-          datum: InlineDatum(node_datum),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-      ],
-      mint: from_asset(policy_id, node_tn(empty_key), 1),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: [mock_pub_key_hash(1)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(empty_key), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(empty_key), 1),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: [mock_pub_key_hash(1)],
+  }
 
   tokenizable_certificate.tokenizable_certificate.mint(
     init_utxo,
@@ -423,47 +411,45 @@ test should_spend_head_on_insert_into_empty_list() {
 
   let head_datum = Head { next: None, config }
   let updated_head_datum = Head { next: Some(cert_key_a), config }
-  let new_node_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let new_node_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
 
   let head_utxo_ref = mock_utxo_ref(5, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: head_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: head_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(updated_head_datum),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(new_node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_a), 1),
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(updated_head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(new_node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_a), 1),
+  }
 
   tokenizable_certificate.tokenizable_certificate.spend(
     init_utxo,
@@ -483,47 +469,45 @@ test should_spend_head_on_insert_before_existing_node() {
 
   let head_datum = Head { next: Some(cert_key_b), config }
   let updated_head_datum = Head { next: Some(cert_key_a), config }
-  let new_node_datum =
-    Node {
-      key: cert_key_a,
-      next: Some(cert_key_b),
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let new_node_datum = Node {
+    key: cert_key_a,
+    next: Some(cert_key_b),
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
 
   let head_utxo_ref = mock_utxo_ref(5, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: head_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: head_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(updated_head_datum),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(new_node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_a), 1),
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(updated_head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(new_node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_a), 1),
+  }
 
   tokenizable_certificate.tokenizable_certificate.spend(
     init_utxo,
@@ -543,47 +527,45 @@ test should_fail_spend_head_with_out_of_order_key() fail {
 
   let head_datum = Head { next: Some(cert_key_a), config }
   let updated_head_datum = Head { next: Some(cert_key_b), config }
-  let new_node_datum =
-    Node {
-      key: cert_key_b,
-      next: Some(cert_key_a),
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let new_node_datum = Node {
+    key: cert_key_b,
+    next: Some(cert_key_a),
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
 
   let head_utxo_ref = mock_utxo_ref(5, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: head_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: head_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(updated_head_datum),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_b), 1),
-          datum: InlineDatum(new_node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_b), 1),
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(updated_head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_b), 1),
+        datum: InlineDatum(new_node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_b), 1),
+  }
 
   tokenizable_certificate.tokenizable_certificate.spend(
     init_utxo,
@@ -604,47 +586,45 @@ test should_fail_spend_head_with_wrong_new_node_next() fail {
   let head_datum = Head { next: Some(cert_key_b), config }
   let updated_head_datum = Head { next: Some(cert_key_a), config }
   // new node's `next` is None instead of the required Some(cert_key_b)
-  let new_node_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let new_node_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
 
   let head_utxo_ref = mock_utxo_ref(5, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: head_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: head_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(updated_head_datum),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(new_node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_a), 1),
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(updated_head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(new_node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_a), 1),
+  }
 
   tokenizable_certificate.tokenizable_certificate.spend(
     init_utxo,
@@ -662,63 +642,59 @@ test should_spend_node_on_insert() {
   let init_utxo = mock_utxo_ref(0, 0)
   let policy_id = mock_script_hash(1)
 
-  let node_a_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
-  let updated_node_a_datum =
-    Node {
-      key: cert_key_a,
-      next: Some(cert_key_b),
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
-  let new_node_b_datum =
-    Node {
-      key: cert_key_b,
-      next: None,
-      owner: mock_pub_key_hash(3),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let node_a_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
+  let updated_node_a_datum = Node {
+    key: cert_key_a,
+    next: Some(cert_key_b),
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
+  let new_node_b_datum = Node {
+    key: cert_key_b,
+    next: None,
+    owner: mock_pub_key_hash(3),
+    asset_name: token_asset_name,
+    status: Available,
+  }
 
   let node_a_utxo_ref = mock_utxo_ref(6, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_a_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_a_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_a_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(updated_node_a_datum),
+          datum: InlineDatum(node_a_datum),
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_b), 1),
-          datum: InlineDatum(new_node_b_datum),
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_b), 1),
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(updated_node_a_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_b), 1),
+        datum: InlineDatum(new_node_b_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_b), 1),
+  }
 
   tokenizable_certificate.tokenizable_certificate.spend(
     init_utxo,
@@ -734,66 +710,61 @@ test should_fail_spend_node_with_wrong_new_node_next() fail {
   let init_utxo = mock_utxo_ref(0, 0)
   let policy_id = mock_script_hash(1)
 
-  let node_a_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
-  let updated_node_a_datum =
-    Node {
-      key: cert_key_a,
-      next: Some(cert_key_b),
-      owner: mock_pub_key_hash(2),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let node_a_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
+  let updated_node_a_datum = Node {
+    key: cert_key_a,
+    next: Some(cert_key_b),
+    owner: mock_pub_key_hash(2),
+    asset_name: token_asset_name,
+    status: Available,
+  }
   // fabricated next; should be None (= node_a's old next)
-  let fabricated: ByteArray =
-    #"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
-  let new_node_b_datum =
-    Node {
-      key: cert_key_b,
-      next: Some(fabricated),
-      owner: mock_pub_key_hash(3),
-      asset_name: token_asset_name,
-      status: Available,
-    }
+  let fabricated: ByteArray = #"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  let new_node_b_datum = Node {
+    key: cert_key_b,
+    next: Some(fabricated),
+    owner: mock_pub_key_hash(3),
+    asset_name: token_asset_name,
+    status: Available,
+  }
 
   let node_a_utxo_ref = mock_utxo_ref(6, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_a_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_a_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_a_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(updated_node_a_datum),
+          datum: InlineDatum(node_a_datum),
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_b), 1),
-          datum: InlineDatum(new_node_b_datum),
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_b), 1),
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(updated_node_a_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_b), 1),
+        datum: InlineDatum(new_node_b_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_b), 1),
+  }
 
   tokenizable_certificate.tokenizable_certificate.spend(
     init_utxo,
@@ -811,67 +782,64 @@ test should_redeem_available_node() {
   let policy_id = mock_script_hash(1)
   let owner = mock_pub_key_hash(2)
 
-  let node_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner,
-      asset_name: token_asset_name,
-      status: Available,
-    }
-  let redeemed_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner,
-      asset_name: token_asset_name,
-      status: Redeemed,
-    }
+  let node_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner,
+    asset_name: token_asset_name,
+    status: Available,
+  }
+  let redeemed_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner,
+    asset_name: token_asset_name,
+    status: Redeemed,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(redeemed_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        Output {
-          address: mock_pub_key_address(2, None),
-          value: from_asset(policy_id, token_asset_name, 1),
-          datum: NoDatum,
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(redeemed_datum),
+        reference_script: None,
+      },
+      Output {
+        address: mock_pub_key_address(2, None),
+        value: from_asset(policy_id, token_asset_name, 1),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
+          address: script_address(policy_id),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(Head { next: None, config: make_config() }),
           reference_script: None,
         },
-      ],
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(Head { next: None, config: make_config() }),
-            reference_script: None,
-          },
-        },
-      ],
-      mint: from_asset(policy_id, token_asset_name, 1),
-      extra_signatories: [owner],
-    }
+      },
+    ],
+    mint: from_asset(policy_id, token_asset_name, 1),
+    extra_signatories: [owner],
+  }
 
   and {
     tokenizable_certificate.tokenizable_certificate.mint(
@@ -895,67 +863,64 @@ test should_fail_redeem_with_wrong_owner() fail {
   let policy_id = mock_script_hash(1)
   let owner = mock_pub_key_hash(2)
 
-  let node_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner,
-      asset_name: token_asset_name,
-      status: Available,
-    }
-  let redeemed_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner,
-      asset_name: token_asset_name,
-      status: Redeemed,
-    }
+  let node_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner,
+    asset_name: token_asset_name,
+    status: Available,
+  }
+  let redeemed_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner,
+    asset_name: token_asset_name,
+    status: Redeemed,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(redeemed_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        Output {
-          address: mock_pub_key_address(2, None),
-          value: from_asset(policy_id, token_asset_name, 1),
-          datum: NoDatum,
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(redeemed_datum),
+        reference_script: None,
+      },
+      Output {
+        address: mock_pub_key_address(2, None),
+        value: from_asset(policy_id, token_asset_name, 1),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
+          address: script_address(policy_id),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(Head { next: None, config: make_config() }),
           reference_script: None,
         },
-      ],
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(Head { next: None, config: make_config() }),
-            reference_script: None,
-          },
-        },
-      ],
-      mint: from_asset(policy_id, token_asset_name, 1),
-      extra_signatories: [mock_pub_key_hash(99)],
-    }
+      },
+    ],
+    mint: from_asset(policy_id, token_asset_name, 1),
+    extra_signatories: [mock_pub_key_hash(99)],
+  }
 
   and {
     tokenizable_certificate.tokenizable_certificate.mint(
@@ -980,61 +945,58 @@ test should_fail_redeem_already_redeemed_node() fail {
   let owner = mock_pub_key_hash(2)
 
   // Node is already Redeemed — transition should be rejected.
-  let node_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner,
-      asset_name: token_asset_name,
-      status: Redeemed,
-    }
-  let output_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner,
-      asset_name: token_asset_name,
-      status: Redeemed,
-    }
+  let node_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner,
+    asset_name: token_asset_name,
+    status: Redeemed,
+  }
+  let output_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner,
+    asset_name: token_asset_name,
+    status: Redeemed,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(output_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-      ],
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(Head { next: None, config: make_config() }),
-            reference_script: None,
-          },
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(output_datum),
+        reference_script: None,
+      },
+    ],
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
+          address: script_address(policy_id),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(Head { next: None, config: make_config() }),
+          reference_script: None,
         },
-      ],
-      mint: from_asset(policy_id, token_asset_name, 1),
-      extra_signatories: [owner],
-    }
+      },
+    ],
+    mint: from_asset(policy_id, token_asset_name, 1),
+    extra_signatories: [owner],
+  }
 
   and {
     tokenizable_certificate.tokenizable_certificate.mint(
@@ -1058,67 +1020,64 @@ test should_fail_redeem_token_sent_to_wrong_address() fail {
   let policy_id = mock_script_hash(1)
   let owner = mock_pub_key_hash(2)
 
-  let node_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner,
-      asset_name: token_asset_name,
-      status: Available,
-    }
-  let redeemed_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner,
-      asset_name: token_asset_name,
-      status: Redeemed,
-    }
+  let node_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner,
+    asset_name: token_asset_name,
+    status: Available,
+  }
+  let redeemed_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner,
+    asset_name: token_asset_name,
+    status: Redeemed,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(redeemed_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        Output {
-          address: mock_pub_key_address(99, None),
-          value: from_asset(policy_id, token_asset_name, 1),
-          datum: NoDatum,
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(redeemed_datum),
+        reference_script: None,
+      },
+      Output {
+        address: mock_pub_key_address(99, None),
+        value: from_asset(policy_id, token_asset_name, 1),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
+          address: script_address(policy_id),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(Head { next: None, config: make_config() }),
           reference_script: None,
         },
-      ],
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(Head { next: None, config: make_config() }),
-            reference_script: None,
-          },
-        },
-      ],
-      mint: from_asset(policy_id, token_asset_name, 1),
-      extra_signatories: [owner],
-    }
+      },
+    ],
+    mint: from_asset(policy_id, token_asset_name, 1),
+    extra_signatories: [owner],
+  }
 
   and {
     tokenizable_certificate.tokenizable_certificate.mint(
@@ -1153,78 +1112,75 @@ test should_redeem_with_cip68_pair() {
   let user_tn = bytearray.concat(cip68_user_prefix, token_asset_name)
   let ref_tn = bytearray.concat(cip68_ref_prefix, token_asset_name)
 
-  let node_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner,
-      asset_name: token_asset_name,
-      status: Available,
-    }
-  let redeemed_datum =
-    Node {
-      key: cert_key_a,
-      next: None,
-      owner,
-      asset_name: token_asset_name,
-      status: Redeemed,
-    }
+  let node_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner,
+    asset_name: token_asset_name,
+    status: Available,
+  }
+  let redeemed_datum = Node {
+    key: cert_key_a,
+    next: None,
+    owner,
+    asset_name: token_asset_name,
+    status: Redeemed,
+  }
   let head_datum = Head { next: Some(cert_key_a), config }
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
+  let tx = Transaction {
+    ..placeholder,
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
+          address: script_address(policy_id),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(head_datum),
+          reference_script: None,
         },
-      ],
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+      },
+    ],
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(redeemed_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        // Label-222 user token → owner's wallet.
-        Output {
-          address: mock_pub_key_address(2, None),
-          value: from_asset(policy_id, user_tn, 1),
-          datum: NoDatum,
-          reference_script: None,
-        },
-        // Label-100 reference token → CIP-68 script.
-        Output {
-          address: script_address(ref_script),
-          value: from_asset(policy_id, ref_tn, 1),
-          datum: NoDatum,
-          reference_script: None,
-        },
-      ],
-      mint: merge(
-        from_asset(policy_id, user_tn, 1),
-        from_asset(policy_id, ref_tn, 1),
-      ),
-      extra_signatories: [owner],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(redeemed_datum),
+        reference_script: None,
+      },
+      // Label-222 user token → owner's wallet.
+      Output {
+        address: mock_pub_key_address(2, None),
+        value: from_asset(policy_id, user_tn, 1),
+        datum: NoDatum,
+        reference_script: None,
+      },
+      // Label-100 reference token → CIP-68 script.
+      Output {
+        address: script_address(ref_script),
+        value: from_asset(policy_id, ref_tn, 1),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    mint: merge(
+      from_asset(policy_id, user_tn, 1),
+      from_asset(policy_id, ref_tn, 1),
+    ),
+    extra_signatories: [owner],
+  }
 
   and {
     tokenizable_certificate.tokenizable_certificate.mint(

@@ -28,8 +28,7 @@ pub fn has_unique_id(id: ByteArray, inputs: List<Input>) -> Bool {
   list.any(
     inputs,
     fn(input: Input) {
-      let OutputReference { transaction_id, output_index } =
-        input.output_reference
+      let OutputReference { transaction_id, output_index } = input.output_reference
 
       sha2_256(
         bytearray.concat(
@@ -68,12 +67,11 @@ pub fn certificates_to_bytearray(certificates: List<UVerifyCertificate>) {
 
 pub fn certificate_to_bytearray(certificate: UVerifyCertificate) {
   let UVerifyCertificate { hash, algorithm, issuer, extra } = certificate
-  let metadata =
-    list.reduce(
-      extra,
-      #"",
-      fn(bytes, part) { concat(bytes, to_bytearray(part)) },
-    )
+  let metadata = list.reduce(
+    extra,
+    #"",
+    fn(bytes, part) { concat(bytes, to_bytearray(part)) },
+  )
   concat(concat(concat(hash, to_bytearray(algorithm)), issuer), metadata)
 }
 

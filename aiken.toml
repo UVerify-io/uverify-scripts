@@ -1,6 +1,6 @@
 name = "uverify/validators"
 version = "0.1.0"
-compiler = "v1.1.17"
+compiler = "v1.1.23"
 description = "Aiken contracts for project 'uverify/validators'"
 
 [repository]
