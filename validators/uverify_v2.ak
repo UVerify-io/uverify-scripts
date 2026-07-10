@@ -10,8 +10,8 @@ use cardano/transaction.{
 }
 use cocktail/vodka_extra_signatories.{key_signed, one_of_keys_signed}
 use common.{
-  certificates_are_valid, contains_service_fee_v2, has_unique_id, is_state_alive,
-  state_datum_is_valid, token_not_expired, verify_state_mutation,
+  certificates_are_valid_v2, contains_service_fee_v2, has_unique_id,
+  is_state_alive, state_datum_is_valid, token_not_expired, verify_state_mutation,
 }
 use types.{
   BURN_BOOTSTRAP, BURN_STATE, BootstrapDatum, MINT_BOOTSTRAP, MINT_STATE,
@@ -147,7 +147,7 @@ validator uverify_state(
                 // Asset name matches unique state ID
                 has_unique_id(state_datum.id, inputs)?,
                 (list.length(redeemer.certificates) <= state_datum.batch_size)?,
-                certificates_are_valid(
+                certificates_are_valid_v2(
                   state_datum.certificate_data_hash,
                   redeemer.certificates,
                   extra_signatories,
@@ -265,7 +265,7 @@ validator uverify_state(
                 verify_state_mutation(next_state, current_state)?,
                 contains_service_fee_v2(outputs, next_state)?,
                 (list.length(redeemer.certificates) <= next_state.batch_size)?,
-                certificates_are_valid(
+                certificates_are_valid_v2(
                   next_state.certificate_data_hash,
                   redeemer.certificates,
                   extra_signatories,

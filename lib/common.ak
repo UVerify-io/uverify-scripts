@@ -65,6 +65,42 @@ pub fn certificates_to_bytearray(certificates: List<UVerifyCertificate>) {
   )
 }
 
+// Single-pass equivalent of certificates_are_valid: validates each certificate
+// and builds the commitment in one traversal instead of two, failing fast on
+// the first invalid certificate. The concatenation order is unchanged, so the
+// resulting hash is byte-identical to certificates_are_valid. Kept separate so
+// the deployed v1 script (which uses certificates_are_valid) is not recompiled.
+fn fold_valid_certificates(
+  certificates: List<UVerifyCertificate>,
+  extra_signatories: List<VerificationKeyHash>,
+  bytes: ByteArray,
+) -> ByteArray {
+  when certificates is {
+    [] -> bytes
+    [certificate, ..rest] -> {
+      expect certificates_is_valid(certificate, extra_signatories)
+      fold_valid_certificates(
+        rest,
+        extra_signatories,
+        concat(bytes, certificate_to_bytearray(certificate)),
+      )
+    }
+  }
+}
+
+pub fn certificates_are_valid_v2(
+  certificate_data_hash: ByteArray,
+  certificates: List<UVerifyCertificate>,
+  extra_signatories: List<VerificationKeyHash>,
+) {
+  and {
+    !list.is_empty(certificates),
+    certificate_data_hash == sha2_256(
+      fold_valid_certificates(certificates, extra_signatories, #""),
+    ),
+  }
+}
+
 pub fn certificate_to_bytearray(certificate: UVerifyCertificate) {
   let UVerifyCertificate { hash, algorithm, issuer, extra } = certificate
   let metadata = list.reduce(
