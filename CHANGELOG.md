@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.1.0](https://github.com/UVerify-io/uverify-scripts/compare/v1.0.0...v1.1.0) (2026-07-11)
+
+
+### Features
+
+* add uverify_v2 validator hardening the state contract ([c6e40e0](https://github.com/UVerify-io/uverify-scripts/commit/c6e40e0387485a61f240703a557f2f99088d5c7c))
+
+
+### Bug Fixes
+
+* format in the style of the new version ([ce43bcb](https://github.com/UVerify-io/uverify-scripts/commit/ce43bcb7af7b59cd22440335320a4daf8ebb9caf))
+
+
+### Performance Improvements
+
+* single-pass certificate validation in v2 ([d9b277e](https://github.com/UVerify-io/uverify-scripts/commit/d9b277ea5d3cd64027fd4dbb24c160e9138ed24b))
+
 ## 1.0.0 (2026-07-09)
 
 
