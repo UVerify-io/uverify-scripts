@@ -19,42 +19,45 @@ test should_init_a_proxy_contract() {
   let redeemer = ADMIN
   let utxo_ref = mock_utxo_ref(0, 0)
 
-  let state_token_name = sha3_256(
-    concat(
-      utxo_ref.transaction_id,
-      string.to_bytearray(int.to_string(utxo_ref.output_index)),
-    ),
-  )
+  let state_token_name =
+    sha3_256(
+      concat(
+        utxo_ref.transaction_id,
+        string.to_bytearray(int.to_string(utxo_ref.output_index)),
+      ),
+    )
 
-  let datum = ProxyDatum {
-    script_pointer: mock_script_hash(1),
-    script_owner: mock_pub_key_hash(0),
-  }
+  let datum =
+    ProxyDatum {
+      script_pointer: mock_script_hash(1),
+      script_owner: mock_pub_key_hash(0),
+    }
 
-  let transaction = Transaction {
-    ..placeholder,
-    inputs: [
-      Input {
-        output_reference: utxo_ref,
-        output: Output {
-          address: mock_pub_key_address(0, None),
-          value: from_lovelace(1293000),
-          datum: NoDatum,
+  let transaction =
+    Transaction {
+      ..placeholder,
+      inputs: [
+        Input {
+          output_reference: utxo_ref,
+          output: Output {
+            address: mock_pub_key_address(0, None),
+            value: from_lovelace(1293000),
+            datum: NoDatum,
+            reference_script: None,
+          },
+        },
+      ],
+      outputs: [
+        Output {
+          address: from_script(policy_id),
+          value: from_asset(policy_id, state_token_name, 1),
+          datum: InlineDatum(datum),
           reference_script: None,
         },
-      },
-    ],
-    outputs: [
-      Output {
-        address: from_script(policy_id),
-        value: from_asset(policy_id, state_token_name, 1),
-        datum: InlineDatum(datum),
-        reference_script: None,
-      },
-    ],
-    mint: from_asset(policy_id, state_token_name, 1),
-    extra_signatories: [mock_pub_key_hash(0)],
-  }
+      ],
+      mint: from_asset(policy_id, state_token_name, 1),
+      extra_signatories: [mock_pub_key_hash(0)],
+    }
 
   uverify_proxy.proxy.mint(utxo_ref, redeemer, policy_id, transaction)
 }
@@ -66,35 +69,37 @@ test should_not_init_wrong_token_name() fail {
 
   let state_token_name = #"c4006600e66008008004805100a1819801"
 
-  let datum = ProxyDatum {
-    script_pointer: mock_script_hash(1),
-    script_owner: mock_pub_key_hash(0),
-  }
+  let datum =
+    ProxyDatum {
+      script_pointer: mock_script_hash(1),
+      script_owner: mock_pub_key_hash(0),
+    }
 
-  let transaction = Transaction {
-    ..placeholder,
-    inputs: [
-      Input {
-        output_reference: utxo_ref,
-        output: Output {
-          address: mock_pub_key_address(0, None),
-          value: from_lovelace(1293000),
-          datum: NoDatum,
+  let transaction =
+    Transaction {
+      ..placeholder,
+      inputs: [
+        Input {
+          output_reference: utxo_ref,
+          output: Output {
+            address: mock_pub_key_address(0, None),
+            value: from_lovelace(1293000),
+            datum: NoDatum,
+            reference_script: None,
+          },
+        },
+      ],
+      outputs: [
+        Output {
+          address: from_script(policy_id),
+          value: from_asset(policy_id, state_token_name, 1),
+          datum: InlineDatum(datum),
           reference_script: None,
         },
-      },
-    ],
-    outputs: [
-      Output {
-        address: from_script(policy_id),
-        value: from_asset(policy_id, state_token_name, 1),
-        datum: InlineDatum(datum),
-        reference_script: None,
-      },
-    ],
-    mint: from_asset(policy_id, state_token_name, 1),
-    extra_signatories: [mock_pub_key_hash(0)],
-  }
+      ],
+      mint: from_asset(policy_id, state_token_name, 1),
+      extra_signatories: [mock_pub_key_hash(0)],
+    }
 
   uverify_proxy.proxy.mint(utxo_ref, redeemer, policy_id, transaction)
 }
@@ -104,42 +109,45 @@ test should_not_init_with_wrong_signature() fail {
   let redeemer = ADMIN
   let utxo_ref = mock_utxo_ref(0, 0)
 
-  let state_token_name = sha3_256(
-    concat(
-      utxo_ref.transaction_id,
-      string.to_bytearray(int.to_string(utxo_ref.output_index)),
-    ),
-  )
+  let state_token_name =
+    sha3_256(
+      concat(
+        utxo_ref.transaction_id,
+        string.to_bytearray(int.to_string(utxo_ref.output_index)),
+      ),
+    )
 
-  let datum = ProxyDatum {
-    script_pointer: mock_script_hash(1),
-    script_owner: mock_pub_key_hash(0),
-  }
+  let datum =
+    ProxyDatum {
+      script_pointer: mock_script_hash(1),
+      script_owner: mock_pub_key_hash(0),
+    }
 
-  let transaction = Transaction {
-    ..placeholder,
-    inputs: [
-      Input {
-        output_reference: utxo_ref,
-        output: Output {
-          address: mock_pub_key_address(0, None),
-          value: from_lovelace(1293000),
-          datum: NoDatum,
+  let transaction =
+    Transaction {
+      ..placeholder,
+      inputs: [
+        Input {
+          output_reference: utxo_ref,
+          output: Output {
+            address: mock_pub_key_address(0, None),
+            value: from_lovelace(1293000),
+            datum: NoDatum,
+            reference_script: None,
+          },
+        },
+      ],
+      outputs: [
+        Output {
+          address: from_script(policy_id),
+          value: from_asset(policy_id, state_token_name, 1),
+          datum: InlineDatum(datum),
           reference_script: None,
         },
-      },
-    ],
-    outputs: [
-      Output {
-        address: from_script(policy_id),
-        value: from_asset(policy_id, state_token_name, 1),
-        datum: InlineDatum(datum),
-        reference_script: None,
-      },
-    ],
-    mint: from_asset(policy_id, state_token_name, 1),
-    extra_signatories: [mock_pub_key_hash(1)],
-  }
+      ],
+      mint: from_asset(policy_id, state_token_name, 1),
+      extra_signatories: [mock_pub_key_hash(1)],
+    }
 
   uverify_proxy.proxy.mint(utxo_ref, redeemer, policy_id, transaction)
 }
