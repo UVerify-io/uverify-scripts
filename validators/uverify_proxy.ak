@@ -44,25 +44,26 @@ validator proxy(utxo_ref: OutputReference) {
     policy_id: ByteArray,
     transaction: Transaction,
   ) {
-    let Transaction {
-      inputs,
-      outputs,
-      extra_signatories,
-      mint,
-      withdrawals,
-      reference_inputs,
-      ..
-    } = transaction
+    let  
+        Transaction {
+          inputs,
+          outputs,
+          extra_signatories,
+          mint,
+          withdrawals,
+          reference_inputs,
+          ..
+        }
+      = transaction
     let state_token_name = get_state_token_name(utxo_ref)
 
     when redeemer is {
       ADMIN -> {
         // Initialization can only run once
-        let required_utxo_spent =
-          list.has(
-            list.map(inputs, fn(input) { input.output_reference }),
-            utxo_ref,
-          )
+        let required_utxo_spent = list.has(
+          list.map(inputs, fn(input) { input.output_reference }),
+          utxo_ref,
+        )
 
         // Collect all outputs locked at this script and holding the policy token
         let script_outputs = find_script_outputs(outputs, policy_id)
@@ -84,20 +85,18 @@ validator proxy(utxo_ref: OutputReference) {
       }
       USER -> {
         // token name is not allowed to be state_token_name
-        let minted_tokens =
-          mint
-            |> tokens(policy_id)
-            |> dict.to_pairs()
-            |> pairs.keys
+        let minted_tokens = mint
+          |> tokens(policy_id)
+          |> dict.to_pairs()
+          |> pairs.keys
 
         // reference input with pointer token should be around
-        let maybe_script_pointer_ref =
-          list.find(
-            reference_inputs,
-            fn(ref_in) {
-              has_nft(ref_in.output.value, policy_id, state_token_name)
-            },
-          )
+        let maybe_script_pointer_ref = list.find(
+          reference_inputs,
+          fn(ref_in) {
+            has_nft(ref_in.output.value, policy_id, state_token_name)
+          },
+        )
 
         expect Some(script_pointer_ref) = maybe_script_pointer_ref
         let proxy_datum = resolve_proxy_datum(script_pointer_ref.output)
@@ -116,14 +115,16 @@ validator proxy(utxo_ref: OutputReference) {
     spent_output_ref: OutputReference,
     transaction: Transaction,
   ) {
-    let Transaction {
-      inputs,
-      outputs,
-      extra_signatories,
-      reference_inputs,
-      withdrawals,
-      ..
-    } = transaction
+    let  
+        Transaction {
+          inputs,
+          outputs,
+          extra_signatories,
+          reference_inputs,
+          withdrawals,
+          ..
+        }
+      = transaction
     // Find the input being spent
     let spent_utxo = resolve_input(inputs, spent_output_ref)
     // Getting the policy of tokens produced by this script
@@ -134,11 +135,10 @@ validator proxy(utxo_ref: OutputReference) {
     when redeemer is {
       ADMIN -> {
         // There must be an output, that has the state token with an updated state
-        expect Some(script_output) =
-          list.find(
-            outputs,
-            fn(output) { has_nft(output.value, policy_id, state_token_name) },
-          )
+        expect Some(script_output) = list.find(
+          outputs,
+          fn(output) { has_nft(output.value, policy_id, state_token_name) },
+        )
 
         let new_proxy_datum = resolve_proxy_datum(script_output)
         let old_proxy_datum = resolve_proxy_datum(spent_utxo)
@@ -154,21 +154,23 @@ validator proxy(utxo_ref: OutputReference) {
       }
       USER -> {
         // reference input with pointer token should be around
-        let maybe_script_pointer_ref =
-          list.find(
-            reference_inputs,
-            fn(ref_in) {
-              has_nft(ref_in.output.value, policy_id, state_token_name)
-            },
-          )
+        let maybe_script_pointer_ref = list.find(
+          reference_inputs,
+          fn(ref_in) {
+            has_nft(ref_in.output.value, policy_id, state_token_name)
+          },
+        )
 
         expect Some(script_pointer_ref) = maybe_script_pointer_ref
         let proxy_datum = resolve_proxy_datum(script_pointer_ref.output)
 
         // withdrawal from script with upgradeable logic must be part of the transaction
         let included_withdrawal_scripts = pairs.keys(withdrawals)
-        let state_token_not_in_inputs =
-          !has_nft(spent_utxo.value, policy_id, state_token_name)
+        let state_token_not_in_inputs = !has_nft(
+          spent_utxo.value,
+          policy_id,
+          state_token_name,
+        )
 
         and {
           state_token_not_in_inputs?,
