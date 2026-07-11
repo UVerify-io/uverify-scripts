@@ -28,8 +28,7 @@ pub fn has_unique_id(id: ByteArray, inputs: List<Input>) -> Bool {
   list.any(
     inputs,
     fn(input: Input) {
-      let OutputReference { transaction_id, output_index } =
-        input.output_reference
+      let OutputReference { transaction_id, output_index } = input.output_reference
 
       sha2_256(
         bytearray.concat(
@@ -66,14 +65,49 @@ pub fn certificates_to_bytearray(certificates: List<UVerifyCertificate>) {
   )
 }
 
+// Single-pass equivalent of certificates_are_valid: validates each certificate
+// and builds the commitment in one traversal instead of two, failing fast on
+// the first invalid certificate. The concatenation order is unchanged, so the
+// resulting hash is byte-identical to certificates_are_valid. Kept separate so
+// the deployed v1 script (which uses certificates_are_valid) is not recompiled.
+fn fold_valid_certificates(
+  certificates: List<UVerifyCertificate>,
+  extra_signatories: List<VerificationKeyHash>,
+  bytes: ByteArray,
+) -> ByteArray {
+  when certificates is {
+    [] -> bytes
+    [certificate, ..rest] -> {
+      expect certificates_is_valid(certificate, extra_signatories)
+      fold_valid_certificates(
+        rest,
+        extra_signatories,
+        concat(bytes, certificate_to_bytearray(certificate)),
+      )
+    }
+  }
+}
+
+pub fn certificates_are_valid_v2(
+  certificate_data_hash: ByteArray,
+  certificates: List<UVerifyCertificate>,
+  extra_signatories: List<VerificationKeyHash>,
+) {
+  and {
+    !list.is_empty(certificates),
+    certificate_data_hash == sha2_256(
+      fold_valid_certificates(certificates, extra_signatories, #""),
+    ),
+  }
+}
+
 pub fn certificate_to_bytearray(certificate: UVerifyCertificate) {
   let UVerifyCertificate { hash, algorithm, issuer, extra } = certificate
-  let metadata =
-    list.reduce(
-      extra,
-      #"",
-      fn(bytes, part) { concat(bytes, to_bytearray(part)) },
-    )
+  let metadata = list.reduce(
+    extra,
+    #"",
+    fn(bytes, part) { concat(bytes, to_bytearray(part)) },
+  )
   concat(concat(concat(hash, to_bytearray(algorithm)), issuer), metadata)
 }
 
@@ -116,6 +150,34 @@ pub fn contains_service_fee(
       )
     },
   )
+}
+
+// Same as contains_service_fee, but when a fee is due it also requires at
+// least one receiver. The original returns true for an empty receiver list
+// (list.all over [] is vacuously true), which lets a fee be skipped entirely
+// when a bootstrap datum is misconfigured with fee > 0 and no receivers.
+pub fn contains_service_fee_v2(
+  outputs: List<Output>,
+  state_datum: StateDatum,
+) -> Bool {
+  state_datum.fee_interval == 0 || state_datum.fee == 0 || (
+    state_datum.countdown + 1
+  ) % state_datum.fee_interval != 0 || and {
+    !list.is_empty(state_datum.fee_receivers),
+    list.all(
+      state_datum.fee_receivers,
+      fn(receiver) {
+        list.any(
+          outputs,
+          fn(output) {
+            output.value == from_lovelace(
+              state_datum.fee / list.length(state_datum.fee_receivers),
+            ) && output.address.payment_credential == VerificationKey(receiver)
+          },
+        )
+      },
+    ),
+  }
 }
 
 pub fn verify_state_mutation(

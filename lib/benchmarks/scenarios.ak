@@ -71,79 +71,75 @@ pub fn mint_state_scenario(
   let user_credential = bench_user_credential()
   let policy_id = mock_policy_id(1)
 
-  let bootstrap_datum =
-    BootstrapDatum {
-      allowed_credentials: [],
-      token_name: bootstrap_token_name,
-      fee: 0,
-      fee_interval: 0,
-      fee_receivers: [],
-      ttl: 1833689900000,
-      transaction_limit: 1000,
-      batch_size: bench_batch_size,
-    }
+  let bootstrap_datum = BootstrapDatum {
+    allowed_credentials: [],
+    token_name: bootstrap_token_name,
+    fee: 0,
+    fee_interval: 0,
+    fee_receivers: [],
+    ttl: 1833689900000,
+    transaction_limit: 1000,
+    batch_size: bench_batch_size,
+  }
 
   let utxo = mock_utxo_ref(1, 0)
-  let state_id =
-    sha2_256(
-      bytearray.concat(
-        left: utxo.transaction_id,
-        right: bytearray.from_int_little_endian(0, 2),
-      ),
-    )
+  let state_id = sha2_256(
+    bytearray.concat(
+      left: utxo.transaction_id,
+      right: bytearray.from_int_little_endian(0, 2),
+    ),
+  )
 
-  let state_datum =
-    StateDatum {
-      id: state_id,
-      owner: user_credential,
-      fee: 0,
-      fee_interval: 0,
-      fee_receivers: [],
-      ttl: 1833689900000,
-      countdown: 999,
-      batch_size: bench_batch_size,
-      keep_as_oracle: False,
-      certificate_data_hash: sha2_256(certificates_to_bytearray(certificates)),
-      bootstrap_datum_name: bootstrap_token_name,
-    }
+  let state_datum = StateDatum {
+    id: state_id,
+    owner: user_credential,
+    fee: 0,
+    fee_interval: 0,
+    fee_receivers: [],
+    ttl: 1833689900000,
+    countdown: 999,
+    batch_size: bench_batch_size,
+    keep_as_oracle: False,
+    certificate_data_hash: sha2_256(certificates_to_bytearray(certificates)),
+    bootstrap_datum_name: bootstrap_token_name,
+  }
 
-  let transaction =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output: Output {
-            address: from_verification_key(user_credential),
-            value: from_lovelace(2000000),
-            datum: NoDatum,
-            reference_script: None,
-          },
-          output_reference: utxo,
-        },
-      ],
-      outputs: [
-        Output {
-          address: from_script(mock_policy_id(1)),
-          value: from_asset(policy_id, state_id, 1),
-          datum: InlineDatum(state_datum),
+  let transaction = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output: Output {
+          address: from_verification_key(user_credential),
+          value: from_lovelace(2000000),
+          datum: NoDatum,
           reference_script: None,
         },
-      ],
-      mint: from_asset(policy_id, state_id, 1),
-      extra_signatories: [user_credential],
-      reference_inputs: [
-        Input {
-          output: Output {
-            address: from_script(mock_policy_id(1)),
-            value: from_asset(policy_id, bootstrap_token_name, 1),
-            datum: InlineDatum(bootstrap_datum),
-            reference_script: None,
-          },
-          output_reference: mock_utxo_ref(2, 0),
+        output_reference: utxo,
+      },
+    ],
+    outputs: [
+      Output {
+        address: from_script(mock_policy_id(1)),
+        value: from_asset(policy_id, state_id, 1),
+        datum: InlineDatum(state_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, state_id, 1),
+    extra_signatories: [user_credential],
+    reference_inputs: [
+      Input {
+        output: Output {
+          address: from_script(mock_policy_id(1)),
+          value: from_asset(policy_id, bootstrap_token_name, 1),
+          datum: InlineDatum(bootstrap_datum),
+          reference_script: None,
         },
-      ],
-      validity_range: mock_interval(Some(1756203803000), Some(1756203804000)),
-    }
+        output_reference: mock_utxo_ref(2, 0),
+      },
+    ],
+    validity_range: mock_interval(Some(1756203803000), Some(1756203804000)),
+  }
 
   BenchScenario {
     policy_id,
@@ -159,61 +155,57 @@ pub fn update_state_scenario(
   let policy_id = mock_policy_id(1)
 
   let utxo = mock_utxo_ref(1, 0)
-  let state_id =
-    sha2_256(
-      bytearray.concat(
-        left: utxo.transaction_id,
-        right: bytearray.from_int_little_endian(0, 2),
-      ),
-    )
+  let state_id = sha2_256(
+    bytearray.concat(
+      left: utxo.transaction_id,
+      right: bytearray.from_int_little_endian(0, 2),
+    ),
+  )
 
-  let current_state_datum =
-    StateDatum {
-      id: state_id,
-      owner: user_credential,
-      fee: 0,
-      fee_interval: 0,
-      fee_receivers: [],
-      ttl: 1833689900000,
-      countdown: 999,
-      batch_size: bench_batch_size,
-      keep_as_oracle: False,
-      certificate_data_hash: #"0000000000000000000000000000000000000000000000000000000000000000",
-      bootstrap_datum_name: bootstrap_token_name,
-    }
+  let current_state_datum = StateDatum {
+    id: state_id,
+    owner: user_credential,
+    fee: 0,
+    fee_interval: 0,
+    fee_receivers: [],
+    ttl: 1833689900000,
+    countdown: 999,
+    batch_size: bench_batch_size,
+    keep_as_oracle: False,
+    certificate_data_hash: #"0000000000000000000000000000000000000000000000000000000000000000",
+    bootstrap_datum_name: bootstrap_token_name,
+  }
 
-  let next_state_datum =
-    StateDatum {
-      ..current_state_datum,
-      countdown: 998,
-      certificate_data_hash: sha2_256(certificates_to_bytearray(certificates)),
-    }
+  let next_state_datum = StateDatum {
+    ..current_state_datum,
+    countdown: 998,
+    certificate_data_hash: sha2_256(certificates_to_bytearray(certificates)),
+  }
 
-  let transaction =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input(
-          mock_utxo_ref(2, 1),
-          Output {
-            address: from_script(mock_policy_id(1)),
-            value: from_asset(policy_id, state_id, 1),
-            datum: InlineDatum(current_state_datum),
-            reference_script: None,
-          },
-        ),
-      ],
-      outputs: [
+  let transaction = Transaction {
+    ..placeholder,
+    inputs: [
+      Input(
+        mock_utxo_ref(2, 1),
         Output {
-          datum: InlineDatum(next_state_datum),
-          value: from_asset(policy_id, state_id, 1),
           address: from_script(mock_policy_id(1)),
+          value: from_asset(policy_id, state_id, 1),
+          datum: InlineDatum(current_state_datum),
           reference_script: None,
         },
-      ],
-      extra_signatories: [user_credential],
-      validity_range: mock_interval(Some(1756203803000), Some(1756203804000)),
-    }
+      ),
+    ],
+    outputs: [
+      Output {
+        datum: InlineDatum(next_state_datum),
+        value: from_asset(policy_id, state_id, 1),
+        address: from_script(mock_policy_id(1)),
+        reference_script: None,
+      },
+    ],
+    extra_signatories: [user_credential],
+    validity_range: mock_interval(Some(1756203803000), Some(1756203804000)),
+  }
 
   BenchScenario {
     policy_id,

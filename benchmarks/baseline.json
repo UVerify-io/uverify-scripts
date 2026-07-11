@@ -1,91 +1,91 @@
 {
-  "aikenVersion": "aiken v1.1.17+c3a7fba",
+  "aikenVersion": "aiken v1.1.23+8949565",
   "versions": {
     "v1": {
       "scenarios": {
         "mint_standard_single": {
-          "mem": 513286,
-          "cpu": 190669253,
+          "mem": 512906,
+          "cpu": 182513719,
           "estimatedTxSizeBytes": 1703,
-          "estimatedFeeLovelace": 273677,
-          "estimatedFeeAda": 0.273677
+          "estimatedFeeLovelace": 273067,
+          "estimatedFeeAda": 0.273067
         },
         "mint_standard_batch_5": {
-          "mem": 729658,
-          "cpu": 309247597,
+          "mem": 727758,
+          "cpu": 268469723,
           "estimatedTxSizeBytes": 2515,
-          "estimatedFeeLovelace": 330440,
-          "estimatedFeeAda": 0.33044
+          "estimatedFeeLovelace": 327390,
+          "estimatedFeeAda": 0.32739
         },
         "mint_standard_batch_10": {
-          "mem": 1001173,
-          "cpu": 457686059,
+          "mem": 997373,
+          "cpu": 376130260,
           "estimatedTxSizeBytes": 3530,
-          "estimatedFeeLovelace": 401468,
-          "estimatedFeeAda": 0.401468
+          "estimatedFeeLovelace": 395369,
+          "estimatedFeeAda": 0.395369
         },
         "mint_rich_single": {
-          "mem": 532934,
-          "cpu": 319011433,
+          "mem": 528482,
+          "cpu": 223468743,
           "estimatedTxSizeBytes": 3062,
-          "estimatedFeeLovelace": 343861,
-          "estimatedFeeAda": 0.343861
+          "estimatedFeeLovelace": 336715,
+          "estimatedFeeAda": 0.336715
         },
         "mint_rich_batch_5": {
-          "mem": 831294,
-          "cpu": 951546005,
+          "mem": 809034,
+          "cpu": 473832351,
           "estimatedTxSizeBytes": 9310,
-          "estimatedFeeLovelace": 681594,
-          "estimatedFeeAda": 0.681594
+          "estimatedFeeLovelace": 645866,
+          "estimatedFeeAda": 0.645866
         },
         "mint_rich_batch_10": {
-          "mem": 1212941,
-          "cpu": 1743707507,
+          "mem": 1168421,
+          "cpu": 788280148,
           "estimatedTxSizeBytes": 17120,
-          "estimatedFeeLovelace": 1104370,
-          "estimatedFeeAda": 1.10437
+          "estimatedFeeLovelace": 1032914,
+          "estimatedFeeAda": 1.032914
         },
         "update_standard_single": {
-          "mem": 417188,
-          "cpu": 159139509,
+          "mem": 416808,
+          "cpu": 150980949,
           "estimatedTxSizeBytes": 1703,
-          "estimatedFeeLovelace": 265859,
-          "estimatedFeeAda": 0.265859
+          "estimatedFeeLovelace": 265249,
+          "estimatedFeeAda": 0.265249
         },
         "update_standard_batch_5": {
-          "mem": 633560,
-          "cpu": 277717853,
+          "mem": 631660,
+          "cpu": 236936953,
           "estimatedTxSizeBytes": 2515,
-          "estimatedFeeLovelace": 322621,
-          "estimatedFeeAda": 0.322621
+          "estimatedFeeLovelace": 319571,
+          "estimatedFeeAda": 0.319571
         },
         "update_standard_batch_10": {
-          "mem": 905075,
-          "cpu": 426156315,
+          "mem": 901275,
+          "cpu": 344597490,
           "estimatedTxSizeBytes": 3530,
-          "estimatedFeeLovelace": 393650,
-          "estimatedFeeAda": 0.39365
+          "estimatedFeeLovelace": 387551,
+          "estimatedFeeAda": 0.387551
         },
         "update_rich_single": {
-          "mem": 436836,
-          "cpu": 287481689,
+          "mem": 432384,
+          "cpu": 191935973,
           "estimatedTxSizeBytes": 3062,
-          "estimatedFeeLovelace": 336042,
-          "estimatedFeeAda": 0.336042
+          "estimatedFeeLovelace": 328897,
+          "estimatedFeeAda": 0.328897
         },
         "update_rich_batch_5": {
-          "mem": 735196,
-          "cpu": 920016261,
+          "mem": 712936,
+          "cpu": 442299581,
           "estimatedTxSizeBytes": 9310,
-          "estimatedFeeLovelace": 673775,
-          "estimatedFeeAda": 0.673775
+          "estimatedFeeLovelace": 638048,
+          "estimatedFeeAda": 0.638048
         },
         "update_rich_batch_10": {
-          "mem": 1116843,
-          "cpu": 1712177763,
+          "mem": 1072323,
+          "cpu": 756747378,
           "estimatedTxSizeBytes": 17120,
-          "estimatedFeeLovelace": 1096551,
-          "estimatedFeeAda": 1.096551
+          "estimatedFeeLovelace": 1025096,
+          "estimatedFeeAda": 1.025096
         }
       },
       "sweeps": {
@@ -93,158 +93,158 @@
           "points": [
             {
               "count": 1,
-              "mem": 457423,
-              "cpu": 176304501
+              "mem": 457043,
+              "cpu": 168148967
             },
             {
               "count": 2,
-              "mem": 509343,
-              "cpu": 205361536
+              "mem": 508583,
+              "cpu": 189050417
             },
             {
               "count": 3,
-              "mem": 561309,
-              "cpu": 234471705
+              "mem": 560169,
+              "cpu": 210005001
             },
             {
               "count": 4,
-              "mem": 613323,
-              "cpu": 263545002
+              "mem": 611803,
+              "cpu": 230922713
             },
             {
               "count": 5,
-              "mem": 665383,
-              "cpu": 292626257
+              "mem": 663483,
+              "cpu": 251848383
             },
             {
               "count": 6,
-              "mem": 717489,
-              "cpu": 321760646
+              "mem": 715209,
+              "cpu": 272827187
             },
             {
               "count": 7,
-              "mem": 769643,
-              "cpu": 350858163
+              "mem": 766983,
+              "cpu": 293769119
             },
             {
               "count": 8,
-              "mem": 821843,
-              "cpu": 379963638
+              "mem": 818803,
+              "cpu": 314719009
             },
             {
               "count": 9,
-              "mem": 874089,
-              "cpu": 409122247
+              "mem": 870669,
+              "cpu": 335722033
             },
             {
               "count": 10,
-              "mem": 926383,
-              "cpu": 438243984
+              "mem": 922583,
+              "cpu": 356688185
             },
             {
               "count": 11,
-              "mem": 978723,
-              "cpu": 467418855
+              "mem": 974543,
+              "cpu": 377707471
             },
             {
               "count": 12,
-              "mem": 1031111,
-              "cpu": 496556854
+              "mem": 1026551,
+              "cpu": 398689885
             },
             {
               "count": 13,
-              "mem": 1083545,
-              "cpu": 525702811
+              "mem": 1078605,
+              "cpu": 419680257
             },
             {
               "count": 14,
-              "mem": 1136025,
-              "cpu": 554901902
+              "mem": 1130705,
+              "cpu": 440723763
             },
             {
               "count": 15,
-              "mem": 1188553,
-              "cpu": 584064121
+              "mem": 1182853,
+              "cpu": 461730397
             },
             {
               "count": 16,
-              "mem": 1241127,
-              "cpu": 613234298
+              "mem": 1235047,
+              "cpu": 482744989
             },
             {
               "count": 17,
-              "mem": 1293747,
-              "cpu": 642457609
+              "mem": 1287287,
+              "cpu": 503812715
             },
             {
               "count": 18,
-              "mem": 1346415,
-              "cpu": 671644048
+              "mem": 1339575,
+              "cpu": 524843569
             },
             {
               "count": 19,
-              "mem": 1399129,
-              "cpu": 700883621
+              "mem": 1391909,
+              "cpu": 545927557
             },
             {
               "count": 20,
-              "mem": 1451891,
-              "cpu": 730086322
+              "mem": 1444291,
+              "cpu": 566974673
             },
             {
               "count": 21,
-              "mem": 1504699,
-              "cpu": 759296981
+              "mem": 1496719,
+              "cpu": 588029747
             },
             {
               "count": 22,
-              "mem": 1557553,
-              "cpu": 788560774
+              "mem": 1549193,
+              "cpu": 609137955
             },
             {
               "count": 23,
-              "mem": 1610455,
-              "cpu": 817787695
+              "mem": 1601715,
+              "cpu": 630209291
             },
             {
               "count": 24,
-              "mem": 1663403,
-              "cpu": 847022574
+              "mem": 1654283,
+              "cpu": 651288585
             },
             {
               "count": 25,
-              "mem": 1716397,
-              "cpu": 876310587
+              "mem": 1706897,
+              "cpu": 672421013
             },
             {
               "count": 26,
-              "mem": 1769439,
-              "cpu": 905561728
+              "mem": 1759559,
+              "cpu": 693516569
             },
             {
               "count": 27,
-              "mem": 1822527,
-              "cpu": 934866003
+              "mem": 1812267,
+              "cpu": 714665259
             },
             {
               "count": 28,
-              "mem": 1875663,
-              "cpu": 964133406
+              "mem": 1865023,
+              "cpu": 735777077
             },
             {
               "count": 29,
-              "mem": 1928845,
-              "cpu": 993408767
+              "mem": 1917825,
+              "cpu": 756896853
             },
             {
               "count": 30,
-              "mem": 1982073,
-              "cpu": 1022737262
+              "mem": 1970673,
+              "cpu": 778069763
             },
             {
               "count": 31,
-              "mem": 2035349,
-              "cpu": 1052028885
+              "mem": 2023569,
+              "cpu": 799205801
             }
           ],
           "ceiling": {
@@ -256,158 +256,158 @@
           "points": [
             {
               "count": 1,
-              "mem": 477071,
-              "cpu": 304646681
+              "mem": 472619,
+              "cpu": 209103991
             },
             {
               "count": 2,
-              "mem": 548979,
-              "cpu": 462104716
+              "mem": 540075,
+              "cpu": 271019285
             },
             {
               "count": 3,
-              "mem": 621273,
-              "cpu": 619629529
+              "mem": 607917,
+              "cpu": 333001357
             },
             {
               "count": 4,
-              "mem": 693953,
-              "cpu": 777221120
+              "mem": 676145,
+              "cpu": 395050207
             },
             {
               "count": 5,
-              "mem": 767019,
-              "cpu": 934924665
+              "mem": 744759,
+              "cpu": 457211011
             },
             {
               "count": 6,
-              "mem": 840473,
-              "cpu": 1092650158
+              "mem": 813761,
+              "cpu": 519393763
             },
             {
               "count": 7,
-              "mem": 914313,
-              "cpu": 1250442429
+              "mem": 883149,
+              "cpu": 581643293
             },
             {
               "count": 8,
-              "mem": 988539,
-              "cpu": 1408301478
+              "mem": 952923,
+              "cpu": 643959601
             },
             {
               "count": 9,
-              "mem": 1063151,
-              "cpu": 1566272481
+              "mem": 1023083,
+              "cpu": 706387863
             },
             {
               "count": 10,
-              "mem": 1138151,
-              "cpu": 1724265432
+              "mem": 1093631,
+              "cpu": 768838073
             },
             {
               "count": 11,
-              "mem": 1213537,
-              "cpu": 1882325161
+              "mem": 1164565,
+              "cpu": 831355061
             },
             {
               "count": 12,
-              "mem": 1289309,
-              "cpu": 2040451668
+              "mem": 1235885,
+              "cpu": 893938827
             },
             {
               "count": 13,
-              "mem": 1365467,
-              "cpu": 2198690129
+              "mem": 1307591,
+              "cpu": 956634547
             },
             {
               "count": 14,
-              "mem": 1442013,
-              "cpu": 2356950538
+              "mem": 1379685,
+              "cpu": 1019352215
             },
             {
               "count": 15,
-              "mem": 1518945,
-              "cpu": 2515277725
+              "mem": 1452165,
+              "cpu": 1082136661
             },
             {
               "count": 16,
-              "mem": 1596263,
-              "cpu": 2673671690
+              "mem": 1525031,
+              "cpu": 1144987885
             },
             {
               "count": 17,
-              "mem": 1673967,
-              "cpu": 2832177609
+              "mem": 1598283,
+              "cpu": 1207951063
             },
             {
               "count": 18,
-              "mem": 1752059,
-              "cpu": 2990705476
+              "mem": 1671923,
+              "cpu": 1270936189
             },
             {
               "count": 19,
-              "mem": 1830537,
-              "cpu": 3149300121
+              "mem": 1745949,
+              "cpu": 1333988093
             },
             {
               "count": 20,
-              "mem": 1909401,
-              "cpu": 3307961544
+              "mem": 1820361,
+              "cpu": 1397106775
             },
             {
               "count": 21,
-              "mem": 1988651,
-              "cpu": 3466734921
+              "mem": 1895159,
+              "cpu": 1460337411
             },
             {
               "count": 22,
-              "mem": 2068289,
-              "cpu": 3625530246
+              "mem": 1970345,
+              "cpu": 1523589995
             },
             {
               "count": 23,
-              "mem": 2148313,
-              "cpu": 3784392349
+              "mem": 2045917,
+              "cpu": 1586909357
             },
             {
               "count": 24,
-              "mem": 2228723,
-              "cpu": 3943321230
+              "mem": 2121875,
+              "cpu": 1650295497
             },
             {
               "count": 25,
-              "mem": 2309519,
-              "cpu": 4102362065
+              "mem": 2198219,
+              "cpu": 1713793591
             },
             {
               "count": 26,
-              "mem": 2390703,
-              "cpu": 4261424848
+              "mem": 2274951,
+              "cpu": 1777313633
             },
             {
               "count": 27,
-              "mem": 2472273,
-              "cpu": 4420554409
+              "mem": 2352069,
+              "cpu": 1840900453
             },
             {
               "count": 28,
-              "mem": 2554229,
-              "cpu": 4579750748
+              "mem": 2429573,
+              "cpu": 1904554051
             },
             {
               "count": 29,
-              "mem": 2636571,
-              "cpu": 4739059041
+              "mem": 2507463,
+              "cpu": 1968319603
             },
             {
               "count": 30,
-              "mem": 2719301,
-              "cpu": 4898389282
+              "mem": 2585741,
+              "cpu": 2032107103
             },
             {
               "count": 31,
-              "mem": 2802417,
-              "cpu": 5057786301
+              "mem": 2664405,
+              "cpu": 2095961381
             }
           ],
           "ceiling": {
@@ -419,158 +419,158 @@
           "points": [
             {
               "count": 1,
-              "mem": 355534,
-              "cpu": 143272699
+              "mem": 355154,
+              "cpu": 135114139
             },
             {
               "count": 2,
-              "mem": 407454,
-              "cpu": 172329734
+              "mem": 406694,
+              "cpu": 156015589
             },
             {
               "count": 3,
-              "mem": 459420,
-              "cpu": 201439903
+              "mem": 458280,
+              "cpu": 176970173
             },
             {
               "count": 4,
-              "mem": 511434,
-              "cpu": 230513200
+              "mem": 509914,
+              "cpu": 197887885
             },
             {
               "count": 5,
-              "mem": 563494,
-              "cpu": 259594455
+              "mem": 561594,
+              "cpu": 218813555
             },
             {
               "count": 6,
-              "mem": 615600,
-              "cpu": 288728844
+              "mem": 613320,
+              "cpu": 239792359
             },
             {
               "count": 7,
-              "mem": 667754,
-              "cpu": 317826361
+              "mem": 665094,
+              "cpu": 260734291
             },
             {
               "count": 8,
-              "mem": 719954,
-              "cpu": 346931836
+              "mem": 716914,
+              "cpu": 281684181
             },
             {
               "count": 9,
-              "mem": 772200,
-              "cpu": 376090445
+              "mem": 768780,
+              "cpu": 302687205
             },
             {
               "count": 10,
-              "mem": 824494,
-              "cpu": 405212182
+              "mem": 820694,
+              "cpu": 323653357
             },
             {
               "count": 11,
-              "mem": 876834,
-              "cpu": 434387053
+              "mem": 872654,
+              "cpu": 344672643
             },
             {
               "count": 12,
-              "mem": 929222,
-              "cpu": 463525052
+              "mem": 924662,
+              "cpu": 365655057
             },
             {
               "count": 13,
-              "mem": 981656,
-              "cpu": 492671009
+              "mem": 976716,
+              "cpu": 386645429
             },
             {
               "count": 14,
-              "mem": 1034136,
-              "cpu": 521870100
+              "mem": 1028816,
+              "cpu": 407688935
             },
             {
               "count": 15,
-              "mem": 1086664,
-              "cpu": 551032319
+              "mem": 1080964,
+              "cpu": 428695569
             },
             {
               "count": 16,
-              "mem": 1139238,
-              "cpu": 580202496
+              "mem": 1133158,
+              "cpu": 449710161
             },
             {
               "count": 17,
-              "mem": 1191858,
-              "cpu": 609425807
+              "mem": 1185398,
+              "cpu": 470777887
             },
             {
               "count": 18,
-              "mem": 1244526,
-              "cpu": 638612246
+              "mem": 1237686,
+              "cpu": 491808741
             },
             {
               "count": 19,
-              "mem": 1297240,
-              "cpu": 667851819
+              "mem": 1290020,
+              "cpu": 512892729
             },
             {
               "count": 20,
-              "mem": 1350002,
-              "cpu": 697054520
+              "mem": 1342402,
+              "cpu": 533939845
             },
             {
               "count": 21,
-              "mem": 1402810,
-              "cpu": 726265179
+              "mem": 1394830,
+              "cpu": 554994919
             },
             {
               "count": 22,
-              "mem": 1455664,
-              "cpu": 755528972
+              "mem": 1447304,
+              "cpu": 576103127
             },
             {
               "count": 23,
-              "mem": 1508566,
-              "cpu": 784755893
+              "mem": 1499826,
+              "cpu": 597174463
             },
             {
               "count": 24,
-              "mem": 1561514,
-              "cpu": 813990772
+              "mem": 1552394,
+              "cpu": 618253757
             },
             {
               "count": 25,
-              "mem": 1614508,
-              "cpu": 843278785
+              "mem": 1605008,
+              "cpu": 639386185
             },
             {
               "count": 26,
-              "mem": 1667550,
-              "cpu": 872529926
+              "mem": 1657670,
+              "cpu": 660481741
             },
             {
               "count": 27,
-              "mem": 1720638,
-              "cpu": 901834201
+              "mem": 1710378,
+              "cpu": 681630431
             },
             {
               "count": 28,
-              "mem": 1773774,
-              "cpu": 931101604
+              "mem": 1763134,
+              "cpu": 702742249
             },
             {
               "count": 29,
-              "mem": 1826956,
-              "cpu": 960376965
+              "mem": 1815936,
+              "cpu": 723862025
             },
             {
               "count": 30,
-              "mem": 1880184,
-              "cpu": 989705460
+              "mem": 1868784,
+              "cpu": 745034935
             },
             {
               "count": 31,
-              "mem": 1933460,
-              "cpu": 1018997083
+              "mem": 1921680,
+              "cpu": 766170973
             }
           ],
           "ceiling": {
@@ -582,158 +582,900 @@
           "points": [
             {
               "count": 1,
-              "mem": 375182,
-              "cpu": 271614879
+              "mem": 370730,
+              "cpu": 176069163
             },
             {
               "count": 2,
-              "mem": 447090,
-              "cpu": 429072914
+              "mem": 438186,
+              "cpu": 237984457
             },
             {
               "count": 3,
-              "mem": 519384,
-              "cpu": 586597727
+              "mem": 506028,
+              "cpu": 299966529
             },
             {
               "count": 4,
-              "mem": 592064,
-              "cpu": 744189318
+              "mem": 574256,
+              "cpu": 362015379
             },
             {
               "count": 5,
-              "mem": 665130,
-              "cpu": 901892863
+              "mem": 642870,
+              "cpu": 424176183
             },
             {
               "count": 6,
-              "mem": 738584,
-              "cpu": 1059618356
+              "mem": 711872,
+              "cpu": 486358935
             },
             {
               "count": 7,
-              "mem": 812424,
-              "cpu": 1217410627
+              "mem": 781260,
+              "cpu": 548608465
             },
             {
               "count": 8,
-              "mem": 886650,
-              "cpu": 1375269676
+              "mem": 851034,
+              "cpu": 610924773
             },
             {
               "count": 9,
-              "mem": 961262,
-              "cpu": 1533240679
+              "mem": 921194,
+              "cpu": 673353035
             },
             {
               "count": 10,
-              "mem": 1036262,
-              "cpu": 1691233630
+              "mem": 991742,
+              "cpu": 735803245
             },
             {
               "count": 11,
-              "mem": 1111648,
-              "cpu": 1849293359
+              "mem": 1062676,
+              "cpu": 798320233
             },
             {
               "count": 12,
-              "mem": 1187420,
-              "cpu": 2007419866
+              "mem": 1133996,
+              "cpu": 860903999
             },
             {
               "count": 13,
-              "mem": 1263578,
-              "cpu": 2165658327
+              "mem": 1205702,
+              "cpu": 923599719
             },
             {
               "count": 14,
-              "mem": 1340124,
-              "cpu": 2323918736
+              "mem": 1277796,
+              "cpu": 986317387
             },
             {
               "count": 15,
-              "mem": 1417056,
-              "cpu": 2482245923
+              "mem": 1350276,
+              "cpu": 1049101833
             },
             {
               "count": 16,
-              "mem": 1494374,
-              "cpu": 2640639888
+              "mem": 1423142,
+              "cpu": 1111953057
             },
             {
               "count": 17,
-              "mem": 1572078,
-              "cpu": 2799145807
+              "mem": 1496394,
+              "cpu": 1174916235
             },
             {
               "count": 18,
-              "mem": 1650170,
-              "cpu": 2957673674
+              "mem": 1570034,
+              "cpu": 1237901361
             },
             {
               "count": 19,
-              "mem": 1728648,
-              "cpu": 3116268319
+              "mem": 1644060,
+              "cpu": 1300953265
             },
             {
               "count": 20,
-              "mem": 1807512,
-              "cpu": 3274929742
+              "mem": 1718472,
+              "cpu": 1364071947
             },
             {
               "count": 21,
-              "mem": 1886762,
-              "cpu": 3433703119
+              "mem": 1793270,
+              "cpu": 1427302583
             },
             {
               "count": 22,
-              "mem": 1966400,
-              "cpu": 3592498444
+              "mem": 1868456,
+              "cpu": 1490555167
             },
             {
               "count": 23,
-              "mem": 2046424,
-              "cpu": 3751360547
+              "mem": 1944028,
+              "cpu": 1553874529
             },
             {
               "count": 24,
-              "mem": 2126834,
-              "cpu": 3910289428
+              "mem": 2019986,
+              "cpu": 1617260669
             },
             {
               "count": 25,
-              "mem": 2207630,
-              "cpu": 4069330263
+              "mem": 2096330,
+              "cpu": 1680758763
             },
             {
               "count": 26,
-              "mem": 2288814,
-              "cpu": 4228393046
+              "mem": 2173062,
+              "cpu": 1744278805
             },
             {
               "count": 27,
-              "mem": 2370384,
-              "cpu": 4387522607
+              "mem": 2250180,
+              "cpu": 1807865625
             },
             {
               "count": 28,
-              "mem": 2452340,
-              "cpu": 4546718946
+              "mem": 2327684,
+              "cpu": 1871519223
             },
             {
               "count": 29,
-              "mem": 2534682,
-              "cpu": 4706027239
+              "mem": 2405574,
+              "cpu": 1935284775
             },
             {
               "count": 30,
-              "mem": 2617412,
-              "cpu": 4865357480
+              "mem": 2483852,
+              "cpu": 1999072275
             },
             {
               "count": 31,
-              "mem": 2700528,
-              "cpu": 5024754499
+              "mem": 2562516,
+              "cpu": 2062926553
+            }
+          ],
+          "ceiling": {
+            "value": 9,
+            "saturated": false
+          }
+        }
+      }
+    },
+    "v2": {
+      "scenarios": {
+        "mint_standard_single": {
+          "mem": 531931,
+          "cpu": 187517477,
+          "estimatedTxSizeBytes": 1703,
+          "estimatedFeeLovelace": 274526,
+          "estimatedFeeAda": 0.274526
+        },
+        "mint_standard_batch_5": {
+          "mem": 741999,
+          "cpu": 271578253,
+          "estimatedTxSizeBytes": 2515,
+          "estimatedFeeLovelace": 328436,
+          "estimatedFeeAda": 0.328436
+        },
+        "mint_standard_batch_10": {
+          "mem": 1005634,
+          "cpu": 376869755,
+          "estimatedTxSizeBytes": 3530,
+          "estimatedFeeLovelace": 395899,
+          "estimatedFeeAda": 0.395899
+        },
+        "mint_rich_single": {
+          "mem": 547507,
+          "cpu": 228472501,
+          "estimatedTxSizeBytes": 3062,
+          "estimatedFeeLovelace": 338174,
+          "estimatedFeeAda": 0.338174
+        },
+        "mint_rich_batch_5": {
+          "mem": 823275,
+          "cpu": 476940881,
+          "estimatedTxSizeBytes": 9310,
+          "estimatedFeeLovelace": 646912,
+          "estimatedFeeAda": 0.646912
+        },
+        "mint_rich_batch_10": {
+          "mem": 1176682,
+          "cpu": 789019643,
+          "estimatedTxSizeBytes": 17120,
+          "estimatedFeeLovelace": 1033444,
+          "estimatedFeeAda": 1.033444
+        },
+        "update_standard_single": {
+          "mem": 422240,
+          "cpu": 152470056,
+          "estimatedTxSizeBytes": 1703,
+          "estimatedFeeLovelace": 265670,
+          "estimatedFeeAda": 0.26567
+        },
+        "update_standard_batch_5": {
+          "mem": 632308,
+          "cpu": 236530832,
+          "estimatedTxSizeBytes": 2515,
+          "estimatedFeeLovelace": 319580,
+          "estimatedFeeAda": 0.31958
+        },
+        "update_standard_batch_10": {
+          "mem": 895943,
+          "cpu": 341822334,
+          "estimatedTxSizeBytes": 3530,
+          "estimatedFeeLovelace": 387043,
+          "estimatedFeeAda": 0.387043
+        },
+        "update_rich_single": {
+          "mem": 437816,
+          "cpu": 193425080,
+          "estimatedTxSizeBytes": 3062,
+          "estimatedFeeLovelace": 329317,
+          "estimatedFeeAda": 0.329317
+        },
+        "update_rich_batch_5": {
+          "mem": 713584,
+          "cpu": 441893460,
+          "estimatedTxSizeBytes": 9310,
+          "estimatedFeeLovelace": 638056,
+          "estimatedFeeAda": 0.638056
+        },
+        "update_rich_batch_10": {
+          "mem": 1066991,
+          "cpu": 753972222,
+          "estimatedTxSizeBytes": 17120,
+          "estimatedFeeLovelace": 1024588,
+          "estimatedFeeAda": 1.024588
+        }
+      },
+      "sweeps": {
+        "mint_standard": {
+          "points": [
+            {
+              "count": 1,
+              "mem": 474666,
+              "cpu": 172776627
+            },
+            {
+              "count": 2,
+              "mem": 525010,
+              "cpu": 193204270
+            },
+            {
+              "count": 3,
+              "mem": 575400,
+              "cpu": 213685047
+            },
+            {
+              "count": 4,
+              "mem": 625838,
+              "cpu": 234128952
+            },
+            {
+              "count": 5,
+              "mem": 676322,
+              "cpu": 254580815
+            },
+            {
+              "count": 6,
+              "mem": 726852,
+              "cpu": 275085812
+            },
+            {
+              "count": 7,
+              "mem": 777430,
+              "cpu": 295553937
+            },
+            {
+              "count": 8,
+              "mem": 828054,
+              "cpu": 316030020
+            },
+            {
+              "count": 9,
+              "mem": 878724,
+              "cpu": 336559237
+            },
+            {
+              "count": 10,
+              "mem": 929442,
+              "cpu": 357051582
+            },
+            {
+              "count": 11,
+              "mem": 980206,
+              "cpu": 377597061
+            },
+            {
+              "count": 12,
+              "mem": 1031018,
+              "cpu": 398105668
+            },
+            {
+              "count": 13,
+              "mem": 1081876,
+              "cpu": 418622233
+            },
+            {
+              "count": 14,
+              "mem": 1132780,
+              "cpu": 439191932
+            },
+            {
+              "count": 15,
+              "mem": 1183732,
+              "cpu": 459724759
+            },
+            {
+              "count": 16,
+              "mem": 1234730,
+              "cpu": 480265544
+            },
+            {
+              "count": 17,
+              "mem": 1285774,
+              "cpu": 500859463
+            },
+            {
+              "count": 18,
+              "mem": 1336866,
+              "cpu": 521416510
+            },
+            {
+              "count": 19,
+              "mem": 1388004,
+              "cpu": 542026691
+            },
+            {
+              "count": 20,
+              "mem": 1439190,
+              "cpu": 562600000
+            },
+            {
+              "count": 21,
+              "mem": 1490422,
+              "cpu": 583181267
+            },
+            {
+              "count": 22,
+              "mem": 1541700,
+              "cpu": 603815668
+            },
+            {
+              "count": 23,
+              "mem": 1593026,
+              "cpu": 624413197
+            },
+            {
+              "count": 24,
+              "mem": 1644398,
+              "cpu": 645018684
+            },
+            {
+              "count": 25,
+              "mem": 1695816,
+              "cpu": 665677305
+            },
+            {
+              "count": 26,
+              "mem": 1747282,
+              "cpu": 686299054
+            },
+            {
+              "count": 27,
+              "mem": 1798794,
+              "cpu": 706973937
+            },
+            {
+              "count": 28,
+              "mem": 1850354,
+              "cpu": 727611948
+            },
+            {
+              "count": 29,
+              "mem": 1901960,
+              "cpu": 748257917
+            },
+            {
+              "count": 30,
+              "mem": 1953612,
+              "cpu": 768957020
+            },
+            {
+              "count": 31,
+              "mem": 2005312,
+              "cpu": 789619251
+            }
+          ],
+          "ceiling": {
+            "value": 31,
+            "saturated": true
+          }
+        },
+        "mint_rich": {
+          "points": [
+            {
+              "count": 1,
+              "mem": 490242,
+              "cpu": 213731651
+            },
+            {
+              "count": 2,
+              "mem": 556502,
+              "cpu": 275173138
+            },
+            {
+              "count": 3,
+              "mem": 623148,
+              "cpu": 336681403
+            },
+            {
+              "count": 4,
+              "mem": 690180,
+              "cpu": 398256446
+            },
+            {
+              "count": 5,
+              "mem": 757598,
+              "cpu": 459943443
+            },
+            {
+              "count": 6,
+              "mem": 825404,
+              "cpu": 521652388
+            },
+            {
+              "count": 7,
+              "mem": 893596,
+              "cpu": 583428111
+            },
+            {
+              "count": 8,
+              "mem": 962174,
+              "cpu": 645270612
+            },
+            {
+              "count": 9,
+              "mem": 1031138,
+              "cpu": 707225067
+            },
+            {
+              "count": 10,
+              "mem": 1100490,
+              "cpu": 769201470
+            },
+            {
+              "count": 11,
+              "mem": 1170228,
+              "cpu": 831244651
+            },
+            {
+              "count": 12,
+              "mem": 1240352,
+              "cpu": 893354610
+            },
+            {
+              "count": 13,
+              "mem": 1310862,
+              "cpu": 955576523
+            },
+            {
+              "count": 14,
+              "mem": 1381760,
+              "cpu": 1017820384
+            },
+            {
+              "count": 15,
+              "mem": 1453044,
+              "cpu": 1080131023
+            },
+            {
+              "count": 16,
+              "mem": 1524714,
+              "cpu": 1142508440
+            },
+            {
+              "count": 17,
+              "mem": 1596770,
+              "cpu": 1204997811
+            },
+            {
+              "count": 18,
+              "mem": 1669214,
+              "cpu": 1267509130
+            },
+            {
+              "count": 19,
+              "mem": 1742044,
+              "cpu": 1330087227
+            },
+            {
+              "count": 20,
+              "mem": 1815260,
+              "cpu": 1392732102
+            },
+            {
+              "count": 21,
+              "mem": 1888862,
+              "cpu": 1455488931
+            },
+            {
+              "count": 22,
+              "mem": 1962852,
+              "cpu": 1518267708
+            },
+            {
+              "count": 23,
+              "mem": 2037228,
+              "cpu": 1581113263
+            },
+            {
+              "count": 24,
+              "mem": 2111990,
+              "cpu": 1644025596
+            },
+            {
+              "count": 25,
+              "mem": 2187138,
+              "cpu": 1707049883
+            },
+            {
+              "count": 26,
+              "mem": 2262674,
+              "cpu": 1770096118
+            },
+            {
+              "count": 27,
+              "mem": 2338596,
+              "cpu": 1833209131
+            },
+            {
+              "count": 28,
+              "mem": 2414904,
+              "cpu": 1896388922
+            },
+            {
+              "count": 29,
+              "mem": 2491598,
+              "cpu": 1959680667
+            },
+            {
+              "count": 30,
+              "mem": 2568680,
+              "cpu": 2022994360
+            },
+            {
+              "count": 31,
+              "mem": 2646148,
+              "cpu": 2086374831
+            }
+          ],
+          "ceiling": {
+            "value": 9,
+            "saturated": false
+          }
+        },
+        "update_standard": {
+          "points": [
+            {
+              "count": 1,
+              "mem": 359885,
+              "cpu": 136415197
+            },
+            {
+              "count": 2,
+              "mem": 410229,
+              "cpu": 156842840
+            },
+            {
+              "count": 3,
+              "mem": 460619,
+              "cpu": 177323617
+            },
+            {
+              "count": 4,
+              "mem": 511057,
+              "cpu": 197767522
+            },
+            {
+              "count": 5,
+              "mem": 561541,
+              "cpu": 218219385
+            },
+            {
+              "count": 6,
+              "mem": 612071,
+              "cpu": 238724382
+            },
+            {
+              "count": 7,
+              "mem": 662649,
+              "cpu": 259192507
+            },
+            {
+              "count": 8,
+              "mem": 713273,
+              "cpu": 279668590
+            },
+            {
+              "count": 9,
+              "mem": 763943,
+              "cpu": 300197807
+            },
+            {
+              "count": 10,
+              "mem": 814661,
+              "cpu": 320690152
+            },
+            {
+              "count": 11,
+              "mem": 865425,
+              "cpu": 341235631
+            },
+            {
+              "count": 12,
+              "mem": 916237,
+              "cpu": 361744238
+            },
+            {
+              "count": 13,
+              "mem": 967095,
+              "cpu": 382260803
+            },
+            {
+              "count": 14,
+              "mem": 1017999,
+              "cpu": 402830502
+            },
+            {
+              "count": 15,
+              "mem": 1068951,
+              "cpu": 423363329
+            },
+            {
+              "count": 16,
+              "mem": 1119949,
+              "cpu": 443904114
+            },
+            {
+              "count": 17,
+              "mem": 1170993,
+              "cpu": 464498033
+            },
+            {
+              "count": 18,
+              "mem": 1222085,
+              "cpu": 485055080
+            },
+            {
+              "count": 19,
+              "mem": 1273223,
+              "cpu": 505665261
+            },
+            {
+              "count": 20,
+              "mem": 1324409,
+              "cpu": 526238570
+            },
+            {
+              "count": 21,
+              "mem": 1375641,
+              "cpu": 546819837
+            },
+            {
+              "count": 22,
+              "mem": 1426919,
+              "cpu": 567454238
+            },
+            {
+              "count": 23,
+              "mem": 1478245,
+              "cpu": 588051767
+            },
+            {
+              "count": 24,
+              "mem": 1529617,
+              "cpu": 608657254
+            },
+            {
+              "count": 25,
+              "mem": 1581035,
+              "cpu": 629315875
+            },
+            {
+              "count": 26,
+              "mem": 1632501,
+              "cpu": 649937624
+            },
+            {
+              "count": 27,
+              "mem": 1684013,
+              "cpu": 670612507
+            },
+            {
+              "count": 28,
+              "mem": 1735573,
+              "cpu": 691250518
+            },
+            {
+              "count": 29,
+              "mem": 1787179,
+              "cpu": 711896487
+            },
+            {
+              "count": 30,
+              "mem": 1838831,
+              "cpu": 732595590
+            },
+            {
+              "count": 31,
+              "mem": 1890531,
+              "cpu": 753257821
+            }
+          ],
+          "ceiling": {
+            "value": 31,
+            "saturated": true
+          }
+        },
+        "update_rich": {
+          "points": [
+            {
+              "count": 1,
+              "mem": 375461,
+              "cpu": 177370221
+            },
+            {
+              "count": 2,
+              "mem": 441721,
+              "cpu": 238811708
+            },
+            {
+              "count": 3,
+              "mem": 508367,
+              "cpu": 300319973
+            },
+            {
+              "count": 4,
+              "mem": 575399,
+              "cpu": 361895016
+            },
+            {
+              "count": 5,
+              "mem": 642817,
+              "cpu": 423582013
+            },
+            {
+              "count": 6,
+              "mem": 710623,
+              "cpu": 485290958
+            },
+            {
+              "count": 7,
+              "mem": 778815,
+              "cpu": 547066681
+            },
+            {
+              "count": 8,
+              "mem": 847393,
+              "cpu": 608909182
+            },
+            {
+              "count": 9,
+              "mem": 916357,
+              "cpu": 670863637
+            },
+            {
+              "count": 10,
+              "mem": 985709,
+              "cpu": 732840040
+            },
+            {
+              "count": 11,
+              "mem": 1055447,
+              "cpu": 794883221
+            },
+            {
+              "count": 12,
+              "mem": 1125571,
+              "cpu": 856993180
+            },
+            {
+              "count": 13,
+              "mem": 1196081,
+              "cpu": 919215093
+            },
+            {
+              "count": 14,
+              "mem": 1266979,
+              "cpu": 981458954
+            },
+            {
+              "count": 15,
+              "mem": 1338263,
+              "cpu": 1043769593
+            },
+            {
+              "count": 16,
+              "mem": 1409933,
+              "cpu": 1106147010
+            },
+            {
+              "count": 17,
+              "mem": 1481989,
+              "cpu": 1168636381
+            },
+            {
+              "count": 18,
+              "mem": 1554433,
+              "cpu": 1231147700
+            },
+            {
+              "count": 19,
+              "mem": 1627263,
+              "cpu": 1293725797
+            },
+            {
+              "count": 20,
+              "mem": 1700479,
+              "cpu": 1356370672
+            },
+            {
+              "count": 21,
+              "mem": 1774081,
+              "cpu": 1419127501
+            },
+            {
+              "count": 22,
+              "mem": 1848071,
+              "cpu": 1481906278
+            },
+            {
+              "count": 23,
+              "mem": 1922447,
+              "cpu": 1544751833
+            },
+            {
+              "count": 24,
+              "mem": 1997209,
+              "cpu": 1607664166
+            },
+            {
+              "count": 25,
+              "mem": 2072357,
+              "cpu": 1670688453
+            },
+            {
+              "count": 26,
+              "mem": 2147893,
+              "cpu": 1733734688
+            },
+            {
+              "count": 27,
+              "mem": 2223815,
+              "cpu": 1796847701
+            },
+            {
+              "count": 28,
+              "mem": 2300123,
+              "cpu": 1860027492
+            },
+            {
+              "count": 29,
+              "mem": 2376817,
+              "cpu": 1923319237
+            },
+            {
+              "count": 30,
+              "mem": 2453899,
+              "cpu": 1986632930
+            },
+            {
+              "count": 31,
+              "mem": 2531367,
+              "cpu": 2050013401
             }
           ],
           "ceiling": {

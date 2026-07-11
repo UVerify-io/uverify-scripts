@@ -21,40 +21,36 @@ validator connected_goods {
     let issuer = #"3f9ff01fd67fcf42cb64f004f13306bd4bfd651154aedcb0dd68dd87"
     let Transaction { inputs, outputs, extra_signatories, mint, .. } = self
     expect Some(owner_credential) = list.head(extra_signatories)
-    expect Some(script_output) =
-      list.find(
-        outputs,
-        fn(output) { output.address.payment_credential == Script(policy_id) },
-      )
+    expect Some(script_output) = list.find(
+      outputs,
+      fn(output) { output.address.payment_credential == Script(policy_id) },
+    )
 
-    expect [Pair(_asset_name, amount)] =
-      mint
-        |> assets.tokens(policy_id)
-        |> dict.to_pairs()
+    expect [Pair(_asset_name, amount)] = mint
+      |> assets.tokens(policy_id)
+      |> dict.to_pairs()
 
     expect InlineDatum(datum) = script_output.datum
     expect datum: ConnectedGoodsDatum = datum
 
-    expect Some(_unique_id_input) =
-      list.find(
-        inputs,
-        fn(input) {
-          let batch_id =
-            sha3_256(
-              concat(
-                input.output_reference.transaction_id,
-                to_bytearray(to_string(input.output_reference.output_index)),
-              ),
-            )
+    expect Some(_unique_id_input) = list.find(
+      inputs,
+      fn(input) {
+        let batch_id = sha3_256(
+          concat(
+            input.output_reference.transaction_id,
+            to_bytearray(to_string(input.output_reference.output_index)),
+          ),
+        )
 
-          trace @"input.output_reference.transaction_id": input.output_reference.transaction_id
-          trace @"input.output_reference.output_index": input.output_reference.output_index
+        trace @"input.output_reference.transaction_id": input.output_reference.transaction_id
+        trace @"input.output_reference.output_index": input.output_reference.output_index
 
-          trace @"Expected batch_id": batch_id
-          trace @"Provided batch_id": datum.id
-          batch_id == datum.id
-        },
-      )
+        trace @"Expected batch_id": batch_id
+        trace @"Provided batch_id": datum.id
+        batch_id == datum.id
+      },
+    )
 
     and {
       amount == 1,
@@ -74,32 +70,26 @@ validator connected_goods {
     let Transaction { inputs, outputs, .. } = self
     expect Some(input) = find_input(inputs, utxo)
     expect Script(policy_id) = input.output.address.payment_credential
-    let script_inputs =
-      list.filter(
-        inputs,
-        fn(input) {
-          input.output.address.payment_credential == Script(policy_id)
-        },
-      )
+    let script_inputs = list.filter(
+      inputs,
+      fn(input) { input.output.address.payment_credential == Script(policy_id) },
+    )
 
-    let script_outputs =
-      list.filter(
-        outputs,
-        fn(output) { output.address.payment_credential == Script(policy_id) },
-      )
+    let script_outputs = list.filter(
+      outputs,
+      fn(output) { output.address.payment_credential == Script(policy_id) },
+    )
 
     expect Some(script_output) = list.head(script_outputs)
-    expect Some(target_item) =
-      list.find(
-        datum.items,
-        fn(item) { item.token_name == redeemer.token_name },
-      )
+    expect Some(target_item) = list.find(
+      datum.items,
+      fn(item) { item.token_name == redeemer.token_name },
+    )
 
-    let expected_datum =
-      ConnectedGoodsDatum {
-        id: "a102",
-        items: list.delete(datum.items, target_item),
-      }
+    let expected_datum = ConnectedGoodsDatum {
+      id: "a102",
+      items: list.delete(datum.items, target_item),
+    }
 
     expect InlineDatum(output_datum) = script_output.datum
     expect output_datum: ConnectedGoodsDatum = output_datum

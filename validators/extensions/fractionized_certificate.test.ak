@@ -68,52 +68,50 @@ test should_init_with_first_node() {
   let uverify_redeemer: Redeemer = make_uverify_redeemer(cert_key_a)
 
   let head_datum = CertificateHead { next: Some(cert_key_a), config }
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: init_utxo,
-          output: Output {
-            address: mock_pub_key_address(0, None),
-            value: from_lovelace(2000000),
-            datum: NoDatum,
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(head_datum),
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: init_utxo,
+        output: Output {
+          address: mock_pub_key_address(0, None),
+          value: from_lovelace(2000000),
+          datum: NoDatum,
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: merge(
-        from_asset(policy_id, node_prefix, 1),
-        from_asset(policy_id, node_tn(cert_key_a), 1),
-      ),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: [mock_pub_key_hash(0)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: merge(
+      from_asset(policy_id, node_prefix, 1),
+      from_asset(policy_id, node_tn(cert_key_a), 1),
+    ),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: [mock_pub_key_hash(0)],
+  }
 
   fractionized_certificate.fractionized_certificate.mint(
     init_utxo,
@@ -131,53 +129,51 @@ test should_fail_init_without_deployer_signature() fail {
   let uverify_redeemer: Redeemer = make_uverify_redeemer(cert_key_a)
 
   let head_datum = CertificateHead { next: Some(cert_key_a), config }
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: init_utxo,
-          output: Output {
-            address: mock_pub_key_address(0, None),
-            value: from_lovelace(2000000),
-            datum: NoDatum,
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(head_datum),
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: init_utxo,
+        output: Output {
+          address: mock_pub_key_address(0, None),
+          value: from_lovelace(2000000),
+          datum: NoDatum,
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: merge(
-        from_asset(policy_id, node_prefix, 1),
-        from_asset(policy_id, node_tn(cert_key_a), 1),
-      ),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: // wrong signer — not the deployer
-      [mock_pub_key_hash(99)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: merge(
+      from_asset(policy_id, node_prefix, 1),
+      from_asset(policy_id, node_tn(cert_key_a), 1),
+    ),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: // wrong signer — not the deployer
+    [mock_pub_key_hash(99)],
+  }
 
   fractionized_certificate.fractionized_certificate.mint(
     init_utxo,
@@ -196,53 +192,51 @@ test should_fail_init_without_consuming_init_utxo() fail {
   let uverify_redeemer: Redeemer = make_uverify_redeemer(cert_key_a)
 
   let head_datum = CertificateHead { next: Some(cert_key_a), config }
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          // wrong UTxO — not the one locked into the validator
-          output_reference: different_utxo,
-          output: Output {
-            address: mock_pub_key_address(0, None),
-            value: from_lovelace(2000000),
-            datum: NoDatum,
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(head_datum),
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        // wrong UTxO — not the one locked into the validator
+        output_reference: different_utxo,
+        output: Output {
+          address: mock_pub_key_address(0, None),
+          value: from_lovelace(2000000),
+          datum: NoDatum,
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: merge(
-        from_asset(policy_id, node_prefix, 1),
-        from_asset(policy_id, node_tn(cert_key_a), 1),
-      ),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: [mock_pub_key_hash(0)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: merge(
+      from_asset(policy_id, node_prefix, 1),
+      from_asset(policy_id, node_tn(cert_key_a), 1),
+    ),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: [mock_pub_key_hash(0)],
+  }
 
   fractionized_certificate.fractionized_certificate.mint(
     init_utxo,
@@ -262,43 +256,41 @@ test should_mint_insert_first_node() {
   let uverify_redeemer: Redeemer = make_uverify_redeemer(cert_key_a)
 
   let head_datum = CertificateHead { next: None, config }
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
           address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(node_datum),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_a), 1),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: [mock_pub_key_hash(1)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_a), 1),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: [mock_pub_key_hash(1)],
+  }
 
   fractionized_certificate.fractionized_certificate.mint(
     init_utxo,
@@ -316,44 +308,42 @@ test should_fail_insert_with_unknown_inserter() fail {
   let uverify_redeemer: Redeemer = make_uverify_redeemer(cert_key_a)
 
   let head_datum = CertificateHead { next: None, config }
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
           address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(node_datum),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_a), 1),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: // no allowed inserter signs
-      [mock_pub_key_hash(99)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_a), 1),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: // no allowed inserter signs
+    [mock_pub_key_hash(99)],
+  }
 
   fractionized_certificate.fractionized_certificate.mint(
     init_utxo,
@@ -372,43 +362,41 @@ test should_fail_insert_with_remaining_not_equal_to_total() fail {
 
   let head_datum = CertificateHead { next: None, config }
   // remaining_amount < total_amount — invalid on insertion
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 5,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 5,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
           address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(node_datum),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_a), 1),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: [mock_pub_key_hash(1)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_a), 1),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: [mock_pub_key_hash(1)],
+  }
 
   fractionized_certificate.fractionized_certificate.mint(
     init_utxo,
@@ -427,43 +415,41 @@ test should_fail_insert_with_status_already_exhausted() fail {
 
   let head_datum = CertificateHead { next: None, config }
   // status is already TokensExhausted — must be TokensAvailable on insertion
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensExhausted,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensExhausted,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
           address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(node_datum),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_a), 1),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: [mock_pub_key_hash(1)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_a), 1),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: [mock_pub_key_hash(1)],
+  }
 
   fractionized_certificate.fractionized_certificate.mint(
     init_utxo,
@@ -482,43 +468,41 @@ test should_fail_insert_with_empty_key() fail {
   let uverify_redeemer: Redeemer = make_uverify_redeemer(empty_key)
 
   let head_datum = CertificateHead { next: None, config }
-  let node_datum =
-    CertificateNode {
-      key: empty_key,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: empty_key,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      reference_inputs: [
-        Input {
-          output_reference: mock_utxo_ref(10, 0),
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    reference_inputs: [
+      Input {
+        output_reference: mock_utxo_ref(10, 0),
+        output: Output {
           address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(empty_key), 1),
-          datum: InlineDatum(node_datum),
+          value: from_asset(policy_id, node_prefix, 1),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-      ],
-      mint: from_asset(policy_id, node_tn(empty_key), 1),
-      redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
-      extra_signatories: [mock_pub_key_hash(1)],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(empty_key), 1),
+        datum: InlineDatum(node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(empty_key), 1),
+    redeemers: [Pair(Withdraw(Script(uverify_hash)), uverify_redeemer)],
+    extra_signatories: [mock_pub_key_hash(1)],
+  }
 
   fractionized_certificate.fractionized_certificate.mint(
     init_utxo,
@@ -537,49 +521,47 @@ test should_spend_head_on_insert_into_empty_list() {
 
   let head_datum = CertificateHead { next: None, config }
   let updated_head_datum = CertificateHead { next: Some(cert_key_a), config }
-  let new_node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let new_node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
   let head_utxo_ref = mock_utxo_ref(5, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: head_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: head_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(updated_head_datum),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(new_node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_a), 1),
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(updated_head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(new_node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_a), 1),
+  }
 
   fractionized_certificate.fractionized_certificate.spend(
     init_utxo,
@@ -599,49 +581,47 @@ test should_spend_head_on_insert_before_existing_node() {
 
   let head_datum = CertificateHead { next: Some(cert_key_b), config }
   let updated_head_datum = CertificateHead { next: Some(cert_key_a), config }
-  let new_node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: Some(cert_key_b),
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let new_node_datum = CertificateNode {
+    key: cert_key_a,
+    next: Some(cert_key_b),
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
   let head_utxo_ref = mock_utxo_ref(5, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: head_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: head_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(updated_head_datum),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(new_node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_a), 1),
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(updated_head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(new_node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_a), 1),
+  }
 
   fractionized_certificate.fractionized_certificate.spend(
     init_utxo,
@@ -661,49 +641,47 @@ test should_fail_spend_head_with_out_of_order_key() fail {
 
   let head_datum = CertificateHead { next: Some(cert_key_a), config }
   let updated_head_datum = CertificateHead { next: Some(cert_key_b), config }
-  let new_node_datum =
-    CertificateNode {
-      key: cert_key_b,
-      next: Some(cert_key_a),
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let new_node_datum = CertificateNode {
+    key: cert_key_b,
+    next: Some(cert_key_a),
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
   let head_utxo_ref = mock_utxo_ref(5, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: head_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_prefix, 1),
-            datum: InlineDatum(head_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: head_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_prefix, 1),
-          datum: InlineDatum(updated_head_datum),
+          datum: InlineDatum(head_datum),
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_b), 1),
-          datum: InlineDatum(new_node_datum),
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_b), 1),
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_prefix, 1),
+        datum: InlineDatum(updated_head_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_b), 1),
+        datum: InlineDatum(new_node_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_b), 1),
+  }
 
   fractionized_certificate.fractionized_certificate.spend(
     init_utxo,
@@ -721,69 +699,65 @@ test should_spend_node_on_insert() {
   let init_utxo = mock_utxo_ref(0, 0)
   let policy_id = mock_script_hash(1)
 
-  let node_a_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
-  let updated_node_a_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: Some(cert_key_b),
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
-  let new_node_b_datum =
-    CertificateNode {
-      key: cert_key_b,
-      next: None,
-      total_amount: 5,
-      remaining_amount: 5,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_a_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
+  let updated_node_a_datum = CertificateNode {
+    key: cert_key_a,
+    next: Some(cert_key_b),
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
+  let new_node_b_datum = CertificateNode {
+    key: cert_key_b,
+    next: None,
+    total_amount: 5,
+    remaining_amount: 5,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
   let node_a_utxo_ref = mock_utxo_ref(6, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_a_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_a_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_a_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(updated_node_a_datum),
+          datum: InlineDatum(node_a_datum),
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_b), 1),
-          datum: InlineDatum(new_node_b_datum),
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_b), 1),
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(updated_node_a_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_b), 1),
+        datum: InlineDatum(new_node_b_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_b), 1),
+  }
 
   fractionized_certificate.fractionized_certificate.spend(
     init_utxo,
@@ -799,70 +773,66 @@ test should_fail_spend_node_with_tampered_predecessor_data() fail {
   let init_utxo = mock_utxo_ref(0, 0)
   let policy_id = mock_script_hash(1)
 
-  let node_a_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_a_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
   // attacker reduces remaining_amount on the predecessor output
-  let tampered_node_a_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: Some(cert_key_b),
-      total_amount: 10,
-      remaining_amount: 1,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
-  let new_node_b_datum =
-    CertificateNode {
-      key: cert_key_b,
-      next: None,
-      total_amount: 5,
-      remaining_amount: 5,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let tampered_node_a_datum = CertificateNode {
+    key: cert_key_a,
+    next: Some(cert_key_b),
+    total_amount: 10,
+    remaining_amount: 1,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
+  let new_node_b_datum = CertificateNode {
+    key: cert_key_b,
+    next: None,
+    total_amount: 5,
+    remaining_amount: 5,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
   let node_a_utxo_ref = mock_utxo_ref(6, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_a_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_a_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_a_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(tampered_node_a_datum),
+          datum: InlineDatum(node_a_datum),
           reference_script: None,
         },
-        Output {
-          address: script_address(policy_id),
-          value: from_asset(policy_id, node_tn(cert_key_b), 1),
-          datum: InlineDatum(new_node_b_datum),
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, node_tn(cert_key_b), 1),
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(tampered_node_a_datum),
+        reference_script: None,
+      },
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_b), 1),
+        datum: InlineDatum(new_node_b_datum),
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, node_tn(cert_key_b), 1),
+  }
 
   fractionized_certificate.fractionized_certificate.spend(
     init_utxo,
@@ -881,61 +851,58 @@ test should_claim_partial_amount_open_access() {
   let policy_id = mock_script_hash(1)
   let claimer = mock_pub_key_hash(5)
 
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      // open access
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
-  let updated_node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 7,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    // open access
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
+  let updated_node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 7,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(updated_node_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        Output {
-          address: mock_pub_key_address(5, None),
-          value: from_asset(policy_id, fraction_asset_name, 3),
-          datum: NoDatum,
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, fraction_asset_name, 3),
-      extra_signatories: [claimer],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(updated_node_datum),
+        reference_script: None,
+      },
+      Output {
+        address: mock_pub_key_address(5, None),
+        value: from_asset(policy_id, fraction_asset_name, 3),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, fraction_asset_name, 3),
+    extra_signatories: [claimer],
+  }
 
   and {
     fractionized_certificate.fractionized_certificate.mint(
@@ -961,60 +928,57 @@ test should_claim_when_claimer_is_on_allowlist() {
   let allowed_claimer = mock_pub_key_hash(5)
   let other_wallet = mock_pub_key_hash(6)
 
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [allowed_claimer, other_wallet],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
-  let updated_node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 8,
-      claimants: [allowed_claimer, other_wallet],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [allowed_claimer, other_wallet],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
+  let updated_node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 8,
+    claimants: [allowed_claimer, other_wallet],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(updated_node_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        Output {
-          address: mock_pub_key_address(5, None),
-          value: from_asset(policy_id, fraction_asset_name, 2),
-          datum: NoDatum,
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, fraction_asset_name, 2),
-      extra_signatories: [allowed_claimer],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(updated_node_datum),
+        reference_script: None,
+      },
+      Output {
+        address: mock_pub_key_address(5, None),
+        value: from_asset(policy_id, fraction_asset_name, 2),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, fraction_asset_name, 2),
+    extra_signatories: [allowed_claimer],
+  }
 
   and {
     fractionized_certificate.fractionized_certificate.mint(
@@ -1039,61 +1003,58 @@ test should_exhaust_certificate_on_final_claim() {
   let policy_id = mock_script_hash(1)
   let claimer = mock_pub_key_hash(5)
 
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
   // claiming all 10 → remaining=0, status=TokensExhausted
-  let exhausted_node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 0,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensExhausted,
-    }
+  let exhausted_node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 0,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensExhausted,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(exhausted_node_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        Output {
-          address: mock_pub_key_address(5, None),
-          value: from_asset(policy_id, fraction_asset_name, 10),
-          datum: NoDatum,
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, fraction_asset_name, 10),
-      extra_signatories: [claimer],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(exhausted_node_datum),
+        reference_script: None,
+      },
+      Output {
+        address: mock_pub_key_address(5, None),
+        value: from_asset(policy_id, fraction_asset_name, 10),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, fraction_asset_name, 10),
+    extra_signatories: [claimer],
+  }
 
   and {
     fractionized_certificate.fractionized_certificate.mint(
@@ -1119,61 +1080,58 @@ test should_fail_claim_by_disallowed_address() fail {
   let allowed_claimer = mock_pub_key_hash(5)
   let intruder = mock_pub_key_hash(99)
 
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [allowed_claimer],
-      // only allowed_claimer may claim
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
-  let updated_node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 8,
-      claimants: [allowed_claimer],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [allowed_claimer],
+    // only allowed_claimer may claim
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
+  let updated_node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 8,
+    claimants: [allowed_claimer],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(updated_node_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        Output {
-          address: mock_pub_key_address(99, None),
-          value: from_asset(policy_id, fraction_asset_name, 2),
-          datum: NoDatum,
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, fraction_asset_name, 2),
-      extra_signatories: [intruder],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(updated_node_datum),
+        reference_script: None,
+      },
+      Output {
+        address: mock_pub_key_address(99, None),
+        value: from_asset(policy_id, fraction_asset_name, 2),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, fraction_asset_name, 2),
+    extra_signatories: [intruder],
+  }
 
   and {
     fractionized_certificate.fractionized_certificate.mint(
@@ -1198,61 +1156,58 @@ test should_fail_claim_exceeds_remaining_amount() fail {
   let policy_id = mock_script_hash(1)
   let claimer = mock_pub_key_hash(5)
 
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 3,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
-  let output_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 0,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensExhausted,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 3,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
+  let output_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 0,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensExhausted,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
   // amount=5 but only 3 remain
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(output_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        Output {
-          address: mock_pub_key_address(5, None),
-          value: from_asset(policy_id, fraction_asset_name, 5),
-          datum: NoDatum,
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, fraction_asset_name, 5),
-      extra_signatories: [claimer],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(output_datum),
+        reference_script: None,
+      },
+      Output {
+        address: mock_pub_key_address(5, None),
+        value: from_asset(policy_id, fraction_asset_name, 5),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, fraction_asset_name, 5),
+    extra_signatories: [claimer],
+  }
 
   and {
     fractionized_certificate.fractionized_certificate.mint(
@@ -1278,62 +1233,59 @@ test should_fail_claim_mint_amount_mismatch() fail {
   let policy_id = mock_script_hash(1)
   let claimer = mock_pub_key_hash(5)
 
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
-  let updated_node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 7,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
+  let updated_node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 7,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
   // redeemer says amount=3 but tx actually mints 7
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(updated_node_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        Output {
-          address: mock_pub_key_address(5, None),
-          value: from_asset(policy_id, fraction_asset_name, 7),
-          datum: NoDatum,
-          reference_script: None,
-        },
-      ],
-      mint: // minting 7 but the redeemer amount is 3
-      from_asset(policy_id, fraction_asset_name, 7),
-      extra_signatories: [claimer],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(updated_node_datum),
+        reference_script: None,
+      },
+      Output {
+        address: mock_pub_key_address(5, None),
+        value: from_asset(policy_id, fraction_asset_name, 7),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    mint: // minting 7 but the redeemer amount is 3
+    from_asset(policy_id, fraction_asset_name, 7),
+    extra_signatories: [claimer],
+  }
 
   fractionized_certificate.fractionized_certificate.mint(
     init_utxo,
@@ -1350,60 +1302,57 @@ test should_fail_claim_from_exhausted_certificate() fail {
   let claimer = mock_pub_key_hash(5)
 
   // status is already TokensExhausted — no further claims allowed
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 0,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensExhausted,
-    }
-  let output_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 0,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensExhausted,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 0,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensExhausted,
+  }
+  let output_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 0,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensExhausted,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(output_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        Output {
-          address: mock_pub_key_address(5, None),
-          value: from_asset(policy_id, fraction_asset_name, 1),
-          datum: NoDatum,
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, fraction_asset_name, 1),
-      extra_signatories: [claimer],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(output_datum),
+        reference_script: None,
+      },
+      Output {
+        address: mock_pub_key_address(5, None),
+        value: from_asset(policy_id, fraction_asset_name, 1),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, fraction_asset_name, 1),
+    extra_signatories: [claimer],
+  }
 
   fractionized_certificate.fractionized_certificate.spend(
     init_utxo,
@@ -1420,61 +1369,58 @@ test should_fail_claim_tokens_sent_to_wrong_address() fail {
   let policy_id = mock_script_hash(1)
   let claimer = mock_pub_key_hash(5)
 
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
-  let updated_node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 7,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
+  let updated_node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 7,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(updated_node_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        // tokens go to attacker, not to claimer
-        Output {
-          address: mock_pub_key_address(99, None),
-          value: from_asset(policy_id, fraction_asset_name, 3),
-          datum: NoDatum,
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, fraction_asset_name, 3),
-      extra_signatories: [claimer],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(updated_node_datum),
+        reference_script: None,
+      },
+      // tokens go to attacker, not to claimer
+      Output {
+        address: mock_pub_key_address(99, None),
+        value: from_asset(policy_id, fraction_asset_name, 3),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, fraction_asset_name, 3),
+    extra_signatories: [claimer],
+  }
 
   fractionized_certificate.fractionized_certificate.spend(
     init_utxo,
@@ -1491,61 +1437,58 @@ test should_fail_claim_without_claimer_signature() fail {
   let policy_id = mock_script_hash(1)
   let claimer = mock_pub_key_hash(5)
 
-  let node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 10,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
-  let updated_node_datum =
-    CertificateNode {
-      key: cert_key_a,
-      next: None,
-      total_amount: 10,
-      remaining_amount: 7,
-      claimants: [],
-      asset_name: fraction_asset_name,
-      status: TokensAvailable,
-    }
+  let node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 10,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
+  let updated_node_datum = CertificateNode {
+    key: cert_key_a,
+    next: None,
+    total_amount: 10,
+    remaining_amount: 7,
+    claimants: [],
+    asset_name: fraction_asset_name,
+    status: TokensAvailable,
+  }
 
   let node_utxo_ref = mock_utxo_ref(7, 0)
 
-  let tx =
-    Transaction {
-      ..placeholder,
-      inputs: [
-        Input {
-          output_reference: node_utxo_ref,
-          output: Output {
-            address: script_address(policy_id),
-            value: from_asset(policy_id, node_tn(cert_key_a), 1),
-            datum: InlineDatum(node_datum),
-            reference_script: None,
-          },
-        },
-      ],
-      outputs: [
-        Output {
+  let tx = Transaction {
+    ..placeholder,
+    inputs: [
+      Input {
+        output_reference: node_utxo_ref,
+        output: Output {
           address: script_address(policy_id),
           value: from_asset(policy_id, node_tn(cert_key_a), 1),
-          datum: InlineDatum(updated_node_datum),
+          datum: InlineDatum(node_datum),
           reference_script: None,
         },
-        Output {
-          address: mock_pub_key_address(5, None),
-          value: from_asset(policy_id, fraction_asset_name, 3),
-          datum: NoDatum,
-          reference_script: None,
-        },
-      ],
-      mint: from_asset(policy_id, fraction_asset_name, 3),
-      extra_signatories: // claimer does not sign
-      [],
-    }
+      },
+    ],
+    outputs: [
+      Output {
+        address: script_address(policy_id),
+        value: from_asset(policy_id, node_tn(cert_key_a), 1),
+        datum: InlineDatum(updated_node_datum),
+        reference_script: None,
+      },
+      Output {
+        address: mock_pub_key_address(5, None),
+        value: from_asset(policy_id, fraction_asset_name, 3),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    ],
+    mint: from_asset(policy_id, fraction_asset_name, 3),
+    extra_signatories: // claimer does not sign
+    [],
+  }
 
   fractionized_certificate.fractionized_certificate.spend(
     init_utxo,

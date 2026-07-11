@@ -13,7 +13,7 @@ use cardano/transaction.{
 }
 use cocktail/vodka_extra_signatories.{key_signed}
 
-pub type ProxActionRedeemer {
+pub type ProxyActionRedeemer {
   ADMIN
   USER
 }
@@ -40,7 +40,7 @@ fn get_state_token_name(utxo_ref: OutputReference) {
 
 validator proxy(utxo_ref: OutputReference) {
   mint(
-    redeemer: ProxActionRedeemer,
+    redeemer: ProxyActionRedeemer,
     policy_id: ByteArray,
     transaction: Transaction,
   ) {
@@ -112,7 +112,7 @@ validator proxy(utxo_ref: OutputReference) {
 
   spend(
     _datum: Option<Data>,
-    redeemer: ProxActionRedeemer,
+    redeemer: ProxyActionRedeemer,
     spent_output_ref: OutputReference,
     transaction: Transaction,
   ) {

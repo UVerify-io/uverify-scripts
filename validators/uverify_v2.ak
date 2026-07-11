@@ -10,8 +10,8 @@ use cardano/transaction.{
 }
 use cocktail/vodka_extra_signatories.{key_signed, one_of_keys_signed}
 use common.{
-  certificates_are_valid, contains_service_fee, has_unique_id, is_state_alive,
-  state_datum_is_valid, token_not_expired, verify_state_mutation,
+  certificates_are_valid_v2, contains_service_fee_v2, has_unique_id,
+  is_state_alive, state_datum_is_valid, token_not_expired, verify_state_mutation,
 }
 use types.{
   BURN_BOOTSTRAP, BURN_STATE, BootstrapDatum, MINT_BOOTSTRAP, MINT_STATE,
@@ -47,13 +47,16 @@ validator uverify_state(
         }
       = tx
 
-    let optional_state_update = list.find(
+    let script_inputs = list.filter(
       inputs,
       fn(input) {
         input.output.address.payment_credential == Script(proxy_policy_id)
       },
     )
-    // If there is a state mutation, there should be just one in a transaction
+    // At most one script UTxO may be spent per transaction. The withdraw
+    // validator runs once and only checks the first script input, so without
+    // this bound a caller could bundle and consume other owners' state UTxOs.
+    let optional_state_update = list.head(script_inputs)
     let is_updating_state = is_some(optional_state_update)
 
     // Extract minted token info
@@ -84,27 +87,28 @@ validator uverify_state(
             MINT_BOOTSTRAP -> {
               // There must be exactly one script output with a datum
               expect Some(script_output) = maybe_script_output_with_policy
-              let Output { datum, .. } = script_output
+              let Output { datum, value, .. } = script_output
               expect InlineDatum(inline_datum) = datum
 
               expect BootstrapDatum { token_name, .. } = inline_datum
 
-              let token_amount = list.length(minted_tokens)
-              expect Some(minted_token) = minted_tokens
-                |> pairs.keys
-                |> list.head
+              let unique_mints = pairs.find_all(minted_tokens, 1)
+              expect Some(minted_token) = list.head(unique_mints)
 
               and {
-                // One bootstrap token created
-                (token_amount == 1)?,
+                // Exactly one bootstrap NFT created, quantity one
+                (list.length(minted_tokens) == 1)?,
+                (list.length(unique_mints) == 1)?,
                 (token_name == minted_token)?,
+                // The minted bootstrap token must be locked at the script
+                has_nft(value, proxy_policy_id, token_name)?,
                 // Admin must sign bootstrap
                 one_of_keys_signed(extra_signatories, admin_keys)?,
               }
             }
             MINT_STATE -> {
               expect Some(script_output) = maybe_script_output_with_policy
-              let Output { datum, .. } = script_output
+              let Output { datum, value, .. } = script_output
               expect InlineDatum(inline_datum) = datum
 
               expect state_datum: StateDatum = inline_datum
@@ -138,10 +142,12 @@ validator uverify_state(
                 tokens_burned <= 1,
                 // Only mint one state token
                 asset_name == state_datum.id,
+                // The minted state token must be locked in the script output
+                has_nft(value, proxy_policy_id, state_datum.id)?,
                 // Asset name matches unique state ID
                 has_unique_id(state_datum.id, inputs)?,
                 (list.length(redeemer.certificates) <= state_datum.batch_size)?,
-                certificates_are_valid(
+                certificates_are_valid_v2(
                   state_datum.certificate_data_hash,
                   redeemer.certificates,
                   extra_signatories,
@@ -160,7 +166,7 @@ validator uverify_state(
                   state_datum.owner,
                   bootstrap_datum,
                 )?,
-                contains_service_fee(outputs, state_datum)?,
+                contains_service_fee_v2(outputs, state_datum)?,
                 token_not_expired(tx.validity_range, state_datum.ttl)?,
                 key_signed(extra_signatories, state_datum.owner)?,
               }
@@ -257,9 +263,9 @@ validator uverify_state(
                 has_nft(script_output.value, proxy_policy_id, current_state.id)?,
                 is_state_alive(current_state, validity_range)?,
                 verify_state_mutation(next_state, current_state)?,
-                contains_service_fee(outputs, next_state)?,
+                contains_service_fee_v2(outputs, next_state)?,
                 (list.length(redeemer.certificates) <= next_state.batch_size)?,
-                certificates_are_valid(
+                certificates_are_valid_v2(
                   next_state.certificate_data_hash,
                   redeemer.certificates,
                   extra_signatories,
@@ -276,6 +282,7 @@ validator uverify_state(
     and {
       pass_minting_logic?,
       pass_spending_logic?,
+      (list.length(script_inputs) <= 1)?,
     }?
   }
 

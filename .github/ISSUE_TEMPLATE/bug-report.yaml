@@ -41,7 +41,7 @@ body:
         examples:
           - **OS**: Ubuntu 23.10
           - **aiken-lang/stdlib**: 3.0.0
-          - **aiken-lang/aiken**: v1.1.17+c3a7fba
+          - **aiken-lang/aiken**: v1.1.23+8949565
       value: |
         - OS:
         - aiken-lang/stdlib:
