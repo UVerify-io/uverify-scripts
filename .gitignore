@@ -14,3 +14,9 @@ plutus.json
 
 # Benchmark artifacts (baseline.json stays tracked)
 benchmarks/results.json
+
+# Local upgrade orchestration (contains/derives secrets)
+tools/upgrade-preprod.sh
+tools/.upgrade.env
+tools/.backend-cp.txt
+tools/upgrade-post-body.txt
