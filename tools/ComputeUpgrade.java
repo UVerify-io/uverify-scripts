@@ -1,6 +1,7 @@
 import co.nstant.in.cbor.CborDecoder;
 import co.nstant.in.cbor.model.ByteString;
 import com.bloxbean.cardano.client.address.AddressProvider;
+import com.bloxbean.cardano.client.common.model.Network;
 import com.bloxbean.cardano.client.common.model.Networks;
 import com.bloxbean.cardano.client.plutus.blueprint.PlutusBlueprintUtil;
 import com.bloxbean.cardano.client.plutus.blueprint.model.PlutusVersion;
@@ -22,14 +23,20 @@ public class ComputeUpgrade {
         String proxyTxHash = args[0];
         int proxyOutputIndex = Integer.parseInt(args[1]);
         String blueprintPath = args[2];
+        // Optional 4th arg: "mainnet" or "preprod" (default). Only affects the
+        // bech32 address printouts used for verification; the POST body is the
+        // parameterized compiled code and is network-independent.
+        String networkName = args.length > 3 ? args[3].toLowerCase() : "preprod";
+        Network network = networkName.equals("mainnet") ? Networks.mainnet() : Networks.preprod();
 
         PlutusScript proxyContract = ValidatorUtils.getUverifyProxyContract(proxyTxHash, proxyOutputIndex);
         String proxyScriptHash = ValidatorUtils.validatorToScriptHash(proxyContract);
         String stateTokenName = ValidatorUtils.getProxyStateTokenName(proxyTxHash, proxyOutputIndex);
 
+        System.out.println("network            = " + networkName);
         System.out.println("proxy_policy_id    = " + proxyScriptHash);
         System.out.println("state_token_name   = " + stateTokenName);
-        System.out.println("proxy_address      = " + AddressProvider.getEntAddress(proxyContract, Networks.preprod()).toBech32());
+        System.out.println("proxy_address      = " + AddressProvider.getEntAddress(proxyContract, network).toBech32());
 
         String blueprint = Files.readString(Path.of(blueprintPath));
         Matcher matcher = Pattern.compile(
@@ -46,7 +53,7 @@ public class ComputeUpgrade {
 
         String v2ScriptHash = ValidatorUtils.validatorToScriptHash(parameterizedScript);
         System.out.println("v2_script_hash     = " + v2ScriptHash);
-        System.out.println("v2_reward_address  = " + AddressProvider.getRewardAddress(parameterizedScript, Networks.preprod()).toBech32());
+        System.out.println("v2_reward_address  = " + AddressProvider.getRewardAddress(parameterizedScript, network).toBech32());
 
         ByteString outer = (ByteString) CborDecoder.decode(HexUtil.decodeHexString(parameterizedCborHex)).get(0);
         String postBody = HexUtil.encodeHexString(outer.getBytes());
@@ -70,6 +77,6 @@ public class ComputeUpgrade {
         // Current v1 script hash for comparison (backend's hardcoded blob)
         PlutusScript currentState = ValidatorUtils.getUVerifyStateContract(proxyTxHash, proxyOutputIndex);
         System.out.println("current_v1_hash    = " + ValidatorUtils.validatorToScriptHash(currentState));
-        System.out.println("v1_reward_address  = " + AddressProvider.getRewardAddress(currentState, Networks.preprod()).toBech32());
+        System.out.println("v1_reward_address  = " + AddressProvider.getRewardAddress(currentState, network).toBech32());
     }
 }
