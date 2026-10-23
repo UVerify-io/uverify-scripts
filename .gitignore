@@ -20,3 +20,6 @@ tools/upgrade-preprod.sh
 tools/.upgrade.env
 tools/.backend-cp.txt
 tools/upgrade-post-body.txt
+tools/upgrade.sh
+tools/unsigned-upgrade-tx.txt
+tools/signed-upgrade-tx.txt
