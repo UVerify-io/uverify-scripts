@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/UVerify-io/uverify-scripts/compare/v1.1.0...v1.2.0) (2026-10-23)
+
+
+### Features
+
+* add proxy upgrade computation tooling ([7d2e735](https://github.com/UVerify-io/uverify-scripts/commit/7d2e735f2ede9d595f331fa9e7e352acd3ee53b7))
+* parameterize ComputeUpgrade by network for mainnet ([3d8cf34](https://github.com/UVerify-io/uverify-scripts/commit/3d8cf34004b4dea3852f3a578928a31623873e44))
+
 ## [1.1.0](https://github.com/UVerify-io/uverify-scripts/compare/v1.0.0...v1.1.0) (2026-07-11)
 
 
